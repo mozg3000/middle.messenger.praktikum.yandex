@@ -1,0 +1,18 @@
+<form name="login" method="post" action="/pages/login.html" class="form form_register ma flex d-column f-between">
+    <div class="form__top `mt-40">
+        <h1 class="form__title t-center">Регистрация</h1>
+        <div class="form-group flex d-column mt-30">
+            {{> 'components/controls/ms_input' name="email" title="Почта" type="text" error="true" message="Такая почта уже зарегистрирована"}}
+            {{> 'components/controls/ms_input' name="login" title="Логин" type="text" error="true" message="Логин должен начинаться с букв и содержать только буквы "}}
+            {{> 'components/controls/ms_input' name="first_name" title="Имя" type="text" error="true" message="Невалидные символы"}}
+            {{> 'components/controls/ms_input' name="second_name" title="Имя" type="text" error="true" message="Невалидные символы"}}
+            {{> 'components/controls/ms_input' name="phone" title="Имя" type="phone" error="true" message="Некорректный телефон"}}
+            {{> 'components/controls/ms_input' name="password" title="Пароль" type="password"}}
+            {{> 'components/controls/ms_input' name="password_repeat" title="Пароль (ещё раз)" type="password"}}
+        </div>
+    </div>
+    <div class="form__controls flex d-column">
+        {{> 'components/controls/ms_btn' title="Регистрация" type="submit" className="btn btn__primary w-100"}}
+        {{> 'components/controls/ms_link' text="Войти" url="../login/login.hbs" className="link t-center"}}
+    </div>
+</form>

@@ -2,7 +2,10 @@
   "name": "web_messenger_bro",
   "version": "0.0.1",
   "description": "",
-  "keywords": ["messenger", "communication"],
+  "keywords": [
+    "messenger",
+    "communication"
+  ],
   "license": "",
   "author": "",
   "scripts": {
@@ -14,6 +17,9 @@
   "devDependencies": {
     "@anikin/parcel-transformer-handlebars": "^1.0.9",
     "parcel": "^2.8.0",
-    "parcel-bundler": "^1.12.4"
+    "parcel-bundler": "^1.12.4",
+    "postcss": "^8.4.19",
+    "postcss-import": "^15.1.0",
+    "postcss-nested": "^6.0.0"
   }
 }

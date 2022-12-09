@@ -1,6 +1,28 @@
+@import "../pages/app.css";
 .flex {
     display: flex;
 }
 .d-column {
     flex-direction: column;
+}
+.ma {
+    margin: 0 auto;
+}
+.t-center {
+    text-align: center;
+}
+.container {
+
+}
+.f-between {
+    justify-content: space-between;
+}
+.w-100 {
+    width: 100%;
+}
+.mt-40 {
+    margin-top: 40px;
+}
+.mt-30 {
+    margin-top: 30px;
 }
