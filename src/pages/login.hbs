@@ -1,10 +1,14 @@
+---
+stylesheets:
+- ../styles/styles.css
+title: Login Page
+---
+
 {{#extend "base"}}
   {{#content "main"}}
     <main>
-        <h1>Welcome to login</h1>
-      <form>
-          {{>'components/buttons/m_btn'}}
-      </form>
+        <h1>Вход</h1>
+        {{>'modules/auth/components/form_login'}}
     </main>
   {{/content}}
 {{/extend}}

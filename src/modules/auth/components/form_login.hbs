@@ -1,0 +1,8 @@
+<form name="login" method="post" action="/login" class="flex d-column">
+    <div class="form-group flex d-column">
+        {{> 'components/controls/ms_input' name="login" title="Логин" type="text"}}
+        {{> 'components/controls/ms_input' name="password" title="Пароль" type="password"}}
+    </div>
+    {{> 'components/controls/ms_btn' title="Войти" type="submit"}}
+    {{> 'components/controls/ms_link' text="Регистрация" url="register.hbs"}}
+</form>
