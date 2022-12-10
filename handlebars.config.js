@@ -1,5 +1,5 @@
 module.exports = {
-    // data: 'markup/data',
+    data: 'data',
     layouts: 'src/layouts',
     partials: 'src',
 };

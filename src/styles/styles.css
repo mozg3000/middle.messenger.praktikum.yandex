@@ -26,3 +26,24 @@
 .mt-30 {
     margin-top: 30px;
 }
+.mt-60 {
+    margin-top: 60px;
+}
+.absolute {
+    position: absolute;
+}
+.relative {
+    position: relative;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+}
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.top {
+    flex-grow: 1;
+}

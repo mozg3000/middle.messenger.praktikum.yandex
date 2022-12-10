@@ -4,10 +4,8 @@ stylesheets:
 title: Login Page
 ---
 
-{{#extend "base"}}
+{{#extend "auth"}}
   {{#content "main"}}
-      <main>
-          {{>'modules/auth/components/form_login'}}
-      </main>
+          {{>'modules/auth/login/form_login'}}
   {{/content}}
 {{/extend}}
