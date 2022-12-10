@@ -5,5 +5,5 @@ const server = express();
 server.use(express.static('./dist'));
 
 server.listen(PORT, (req, res) => {
-    console.log('Start server')
+    console.log('Start listening on port 3000')
 })
