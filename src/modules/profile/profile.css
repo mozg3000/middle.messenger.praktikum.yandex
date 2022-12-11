@@ -48,5 +48,8 @@ $color_block_bgd: #FBFBFB;
     &__input {
         height: 100%;
         border: none;
+        background: transparent;
+        text-align: right;
     }
 }
+
