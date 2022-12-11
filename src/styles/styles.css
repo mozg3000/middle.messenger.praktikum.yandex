@@ -1,4 +1,8 @@
+@import "normalize.css";
 @import "../pages/app.css";
+a {
+    text-decoration: none;
+}
 .flex {
     display: flex;
 }
