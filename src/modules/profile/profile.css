@@ -1,3 +1,5 @@
+$color_block_bgd: #FBFBFB;
+
 .info {
     width: 510px;
     margin: 0 auto;
@@ -17,13 +19,11 @@
     width: 64px;
     left: 0px;
     top: 0px;
-    background: #FBFBFB;
+    background: $color_block_bgd;
     padding-top: 25%;
     &__arrow {
         margin-left: 18px;
     }
-}
-.container {
 }
 .avatar-block {
     &__image {
@@ -36,11 +36,17 @@
         background-repeat: no-repeat;
     }
 }
-.profile-name {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 16px;
-    text-align: center;
-    color: #1E1E1E;
-    margin-top: 31px;
+.profile {
+    &-name {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 16px;
+        text-align: center;
+        color: #1E1E1E;
+        margin-top: 31px;
+    }
+    &__input {
+        height: 100%;
+        border: none;
+    }
 }

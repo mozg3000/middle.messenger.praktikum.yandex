@@ -1,4 +1,10 @@
 <div class="info__item flex f-between">
-    <div class="label">{{data.name}}</div>
-    <div class="description">{{data.value}}</div>
+    <div class="label"><p>{{data.name}}</p></div>
+    <div class="description">
+        {{#if edit}}
+            {{> 'components/controls/ms_input' name=data.name id=data.name value=data.value className="profile__input" }}
+        {{else}}
+            <p>{{data.value}}</p>
+        {{/if}}
+    </div>
 </div>
