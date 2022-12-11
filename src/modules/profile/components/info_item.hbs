@@ -2,7 +2,7 @@
     <div class="label"><p>{{data.name}}</p></div>
     <div class="description">
         {{#if edit}}
-            {{> 'components/controls/ms_input' name=data.name id=data.name value=data.value className="profile__input" }}
+            {{> 'components/controls/ms_input' name=data.iname id=data.iname value=data.value className="profile__input" type=data.type}}
         {{else}}
             <p>{{data.value}}</p>
         {{/if}}
