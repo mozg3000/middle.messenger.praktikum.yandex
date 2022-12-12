@@ -1,0 +1,13 @@
+<form name="login" method="post" action="/pages/login/index.html" class="form ma flex d-column f-between">
+    <div class="form__top `mt-40">
+        <h1 class="form__title t-center">Вход</h1>
+        <div class="form-group flex d-column mt-30">
+            {{> 'components/controls/ms_input' name="login" title="Логин" type="text" error="true" message="Неверный логин"}}
+            {{> 'components/controls/ms_input' name="password" title="Пароль" type="password" error="true" message="Неверный пароль"}}
+        </div>
+    </div>
+    <div class="form__controls flex d-column">
+        {{> 'components/controls/ms_btn' title="Войти" type="submit" className="btn btn__primary w-100"}}
+        {{> 'components/controls/ms_link' text="Регистрация" url="../register/index.hbs" className="link t-center"}}
+    </div>
+</form>

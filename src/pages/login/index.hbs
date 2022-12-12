@@ -1,0 +1,11 @@
+---
+stylesheets:
+- ../../styles/styles.css
+title: Login Page
+---
+
+{{#extend "auth"}}
+  {{#content "main"}}
+          {{>'modules/auth/login/form_login'}}
+  {{/content}}
+{{/extend}}

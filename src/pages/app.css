@@ -1,0 +1,54 @@
+@import "../modules/profile/profile.css";
+
+$color_danger: #FF2F2F;
+$color_shadow: rgba(0, 0, 0, 0.25);
+$color_btn_primary: #AAB5CF;
+$color_btn_text: #FFF;
+$color_link_text: #AAB5CF;
+
+.form {
+    width: 340px;
+    height: 450px;
+    padding: 50px 30px;
+    background: #FFFFFF;
+    border: 1px solid #D3CECE;
+    box-shadow: 0px 4px 4px $color_shadow;
+    margin-top: 25%!important;
+    transform: translateY(-50%);
+    &__title {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 20px;
+        text-align: center;
+        color: #8D8D8D;
+        margin: 0;
+    }
+    &_register {
+        height: 615px;
+    }
+}
+.btn {
+    box-shadow: 0px 4px 4px $color_shadow;
+    padding: 12px 70px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+    text-align: center;
+    &__primary {
+        background: $color_btn_primary;
+        color: $color_btn_text;
+    }
+}
+.link {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 11px;
+    color: $color_link_text;
+    text-decoration: none;
+}
+.danger {
+    color: $color_danger;
+}
