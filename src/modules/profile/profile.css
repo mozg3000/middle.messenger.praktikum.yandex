@@ -4,15 +4,13 @@ $color_block_bgd: #FBFBFB;
     width: 510px;
     margin: 0 auto;
     margin-top: 60px;
-    &__block {
-    }
-    &__bottom {
-        margin-top: 40px;
-    }
-    &__item {
-        border-bottom: 1px solid #EAEAEA;
-        margin-top: 2px;
-    }
+}
+.info__bottom {
+    margin-top: 40px;
+}
+.info__item {
+    border-bottom: 1px solid #EAEAEA;
+    margin-top: 2px;
 }
 .back-block {
     height: 100%;
@@ -21,12 +19,11 @@ $color_block_bgd: #FBFBFB;
     top: 0px;
     background: $color_block_bgd;
     padding-top: 25%;
-    &__arrow {
-        margin-left: 18px;
-    }
 }
-.avatar-block {
-    &__image {
+.back-block__arrow {
+    margin-left: 18px;
+}
+.avatar-block__image {
         width: 130px;
         height: 130px;
         border-radius: 130px;
@@ -34,22 +31,19 @@ $color_block_bgd: #FBFBFB;
         background-image: url("../assets/images/profile/avatar.svg");
         background-position: center center;
         background-repeat: no-repeat;
-    }
 }
-.profile {
-    &-name {
+.profile-name {
         font-weight: 600;
         font-size: 16px;
         line-height: 16px;
         text-align: center;
         color: #1E1E1E;
         margin-top: 31px;
-    }
-    &__input {
-        height: 100%;
-        border: none;
-        background: transparent;
-        text-align: right;
-    }
+}
+.profile__input {
+    height: 100%;
+    border: none;
+    background: transparent;
+    text-align: right;
 }
 

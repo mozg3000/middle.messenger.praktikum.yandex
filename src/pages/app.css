@@ -15,18 +15,18 @@ $color_link_text: #AAB5CF;
     box-shadow: 0px 4px 4px $color_shadow;
     margin-top: 25%!important;
     transform: translateY(-50%);
-    &__title {
-        font-style: normal;
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 20px;
-        text-align: center;
-        color: #8D8D8D;
-        margin: 0;
-    }
-    &_register {
-        height: 615px;
-    }
+}
+.form__title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: #8D8D8D;
+    margin: 0;
+}
+.form_register {
+    height: 615px;
 }
 .btn {
     box-shadow: 0px 4px 4px $color_shadow;
@@ -36,10 +36,10 @@ $color_link_text: #AAB5CF;
     font-size: 13px;
     line-height: 13px;
     text-align: center;
-    &__primary {
-        background: $color_btn_primary;
-        color: $color_btn_text;
-    }
+}
+.btn__primary {
+    background: $color_btn_primary;
+    color: $color_btn_text;
 }
 .link {
     font-style: normal;
