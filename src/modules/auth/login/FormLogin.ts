@@ -1,19 +1,59 @@
 import { Block, registerComponent } from '../../../core';
 import { initProps } from './initProps';
-import { handleClick } from './handlers';
 import { Button, InputGroup, Link } from '../../../components/controls';
+import { LengthRule, Validator, RequireRule, RegExRule } from '../../../lib/validators';
 
 registerComponent(InputGroup)
 registerComponent(Button)
 registerComponent(Link)
 
 const FormLogin = class extends Block {
+  private _validator: Validator
   constructor() {
     super({
       ...initProps,
-      handleClick,
-      handleFocus: (event: Event) => console.log(event)
-    });
+      handleClick: (event: Event) => {
+        event.preventDefault()
+        this.validateInputs()
+      },
+      handleFocus: () => this.validateInputs(),
+      handleBlur: () => this.validateInputs(),
+      handleChange: () => {
+        this.refs.loginInputRef.refs.errorBlock.props.message = ''
+      }
+    })
+    this._validator = new Validator({
+      login: [
+        new RequireRule(),
+        new LengthRule(3, {min: 'Слишком короткое имя'}),
+        new RegExRule(/^[A-Za-zА-Яа-я]/, {contain: 'Должен начинаться с букв'}, true),
+        new RegExRule(/^\w*([&%$~^\[\]{}?!\/\/]*)\w*$/, {notContain: 'Содержит недопустимые символы'}) // eslint-disable-line
+      ],
+      pwd: [
+        new RequireRule(),
+        new LengthRule(8, {min: 'Слишком короткий пароль'})
+      ]
+    })
+  }
+
+  validateInputs():void {
+    const loginValue = this.getInputValue('loginInputRef')
+    const loginError = !this._validator.validate('login', loginValue)
+    if (loginError) {
+      this.setError('loginInputRef', 'login')
+    }
+    const pwdValue = this.getInputValue('pwdInputRef')
+    const pwdError = !this._validator.validate('pwd', pwdValue)
+    if (pwdError) {
+      this.setError('pwdInputRef', 'pwd')
+    }
+  }
+  getInputValue(refName: string):string {
+    return this.refs[refName].refs.input._element.value
+  }
+  setError(refName: string, type: string):void {
+    this.refs[refName].refs.errorBlock.props.error = true // eslint-disable-line
+    this.refs[refName].refs.errorBlock.props.message = this._validator.getFirstError(type)
   }
   protected render(): string {
     //language=hbs
@@ -30,7 +70,11 @@ const FormLogin = class extends Block {
                 id=loginInputId
                 error=loginError
                 message=loginErrorMessage
+                value=loginInputValue
                 focus=handleFocus
+                blur=handleBlurv
+                change=handleChange
+                ref='loginInputRef'
             }}}
             {{{
               InputGroup
@@ -41,6 +85,7 @@ const FormLogin = class extends Block {
                 id=pwdInputId
                 error=pwdError
                 message=pwdErrorMessage
+                ref='pwdInputRef'
             }}}
           </div>
       </div>

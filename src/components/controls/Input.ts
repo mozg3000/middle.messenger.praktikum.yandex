@@ -2,6 +2,8 @@ import { Block } from '../../core';
 
 interface InputProps {
   focus: (event: Event) => void, // eslint-disable-line no-unused-vars
+  blur: (event: Event) => void, // eslint-disable-line no-unused-vars
+  change: (event: Event) => void, // eslint-disable-line no-unused-vars
   type: string,
   name: string,
   className: string,
@@ -15,7 +17,9 @@ const Input = class extends Block {
     super({
       ...props,
       events: {
-        focus: props.focus
+        focus: props.focus,
+        blur: props.focus,
+        input: props.change
       }
     });
 

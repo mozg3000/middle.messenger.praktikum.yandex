@@ -24,35 +24,17 @@ const InputGroup = class extends Block {
           placeholder=placeholder
           className=className
           focus=focus
+          blur=blur
+          change=change
+          ref='input'
       }}}
       {{{
         ErrorMessage
           error=error
           message=message
+          ref='errorBlock'
       }}}
     </div>`
   }
 }
 export { InputGroup }
-/*
-
-      {{{
-        ErrorMessage
-          error=loginError
-          message=loginErrorMessage
-      }}}
-      {{{
-        Label
-          title=title
-          id=id
-      }}}
-      {{{
-        Input
-          name=name
-          type=type
-          id=id
-          value=value
-          placeholder=placeholder
-          className=className
-      }}}
- */
