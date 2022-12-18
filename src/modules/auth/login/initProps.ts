@@ -6,16 +6,16 @@ const initProps = {
   loginInputName: 'login',
   loginInputId: 'login_input',
   loginTitle: 'Логин',
-  pwdInputType: 'password',
-  pwdInputName: 'password',
-  pwdInputId: 'pwd_input',
-  pwdTitle: 'Пароль',
+  passwordInputType: 'password',
+  passwordInputName: 'password',
+  passwordInputId: 'password_input',
+  passwordTitle: 'Пароль',
   registerLinkText: 'Регистрация',
   registerLinkUrl: '/register',
   registerLinkClassName: 'link t-center',
   loginError: false,
   loginErrorMessage: '',
-  pwdError: false,
-  pwdErrorMessage: ''
+  passwordError: false,
+  passwordErrorMessage: ''
 }
 export { initProps }

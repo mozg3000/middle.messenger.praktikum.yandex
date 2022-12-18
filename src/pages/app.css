@@ -8,7 +8,7 @@ $color_link_text: #AAB5CF;
 
 .form {
     width: 340px;
-    height: 450px;
+    min-height: 450px;
     padding: 50px 30px;
     background: #FFFFFF;
     border: 1px solid #D3CECE;
@@ -26,7 +26,7 @@ $color_link_text: #AAB5CF;
     margin: 0;
 }
 .form_register {
-    height: 615px;
+    min-height: 615px;
 }
 .btn {
     box-shadow: 0px 4px 4px $color_shadow;

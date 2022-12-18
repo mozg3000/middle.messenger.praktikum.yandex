@@ -1,7 +1,8 @@
 import { Block, registerComponent } from '../../../core';
 import { initProps } from './initProps';
 import { Button, InputGroup, Link } from '../../../components/controls';
-import { LengthRule, Validator, RequireRule, RegExRule } from '../../../lib/validators';
+import { Validator } from '../../../lib/validators';
+import { ruleSet } from './LoginRuleSet';
 
 registerComponent(InputGroup)
 registerComponent(Button)
@@ -19,37 +20,30 @@ const FormLogin = class extends Block {
       handleFocus: () => this.validateInputs(),
       handleBlur: () => this.validateInputs(),
       handleChange: () => {
-        this.refs.loginInputRef.refs.errorBlock.props.message = ''
+        const refs: { [p: string ]: Block } = this.refs
+        for (const ref: string in refs) {
+          if (refs[ref].refs && refs[ref].refs.errorBlock) {
+            refs[ref].refs.errorBlock.props.message = ''
+          }
+        }
       }
     })
-    this._validator = new Validator({
-      login: [
-        new RequireRule(),
-        new LengthRule(3, {min: 'Слишком короткое имя'}),
-        new RegExRule(/^[A-Za-zА-Яа-я]/, {contain: 'Должен начинаться с букв'}, true),
-        new RegExRule(/^\w*([&%$~^\[\]{}?!\/\/]*)\w*$/, {notContain: 'Содержит недопустимые символы'}) // eslint-disable-line
-      ],
-      pwd: [
-        new RequireRule(),
-        new LengthRule(8, {min: 'Слишком короткий пароль'})
-      ]
-    })
+    this._validator = new Validator(ruleSet)
   }
-
   validateInputs():void {
-    const loginValue = this.getInputValue('loginInputRef')
-    const loginError = !this._validator.validate('login', loginValue)
-    if (loginError) {
-      this.setError('loginInputRef', 'login')
+    const refs: { [p: string ]: Block } = this.refs
+    for (const ref: string in refs) {
+      const inputComponent: Nullable<Block> = refs[ref].refs.input // eslint-disable-line no-undef
+      if (inputComponent) {
+        const inputElement: Nullable<HTMLInputElement> = inputComponent._element as HTMLInputElement // eslint-disable-line no-undef
+        const value: string = inputElement.value
+        const name: string = inputElement.name
+        let error: boolean = !this._validator.validate(name, value)
+        if (error) {
+          this.setError(ref, name)
+        }
+      }
     }
-    const pwdValue = this.getInputValue('pwdInputRef')
-    const pwdError = !this._validator.validate('pwd', pwdValue)
-    if (pwdError) {
-      this.setError('pwdInputRef', 'pwd')
-    }
-  }
-  getInputValue(refName: string):string {
-    return this.refs[refName].refs.input._element.value
   }
   setError(refName: string, type: string):void {
     this.refs[refName].refs.errorBlock.props.error = true // eslint-disable-line
@@ -67,7 +61,6 @@ const FormLogin = class extends Block {
                 id=loginInputId
                 name=loginInputName
                 type=loginInputType
-                id=loginInputId
                 error=loginError
                 message=loginErrorMessage
                 value=loginInputValue
@@ -78,14 +71,17 @@ const FormLogin = class extends Block {
             }}}
             {{{
               InputGroup
-                title=pwdTitle
-                id=pwdInputId
-                name=pwdInputName
-                type=pwdInputType
-                id=pwdInputId
-                error=pwdError
-                message=pwdErrorMessage
-                ref='pwdInputRef'
+                title=passwordTitle
+                id=passwordInputId
+                name=passwordInputName
+                type=passwordInputType
+                id=passwordInputId
+                error=passwordError
+                message=passwordErrorMessage
+                focus=handleFocus
+                blur=handleBlurv
+                change=handleChange
+                ref='passwordInputRef'
             }}}
           </div>
       </div>

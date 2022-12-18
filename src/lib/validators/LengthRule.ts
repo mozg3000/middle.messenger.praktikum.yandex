@@ -16,7 +16,7 @@ const LengthRule = class extends Rule {
       this._message = this._messages.min
       return false
     }
-    if (this._maxLength && (value.length < this._maxLength)) {
+    if (this._maxLength && (value.length > this._maxLength)) {
       this._message = this._messages.max
       return false
     }
