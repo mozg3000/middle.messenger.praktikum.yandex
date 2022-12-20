@@ -7,6 +7,7 @@ const HomePage = class extends Block {
     <ul>
         <li><a href="/login">Login page</a></li>
         <li><a href="/register">Register page</a></li>
+        <li><a href="/profile">Profile page</a></li>
     </ul>`
   }
 }

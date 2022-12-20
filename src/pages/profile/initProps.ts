@@ -1,0 +1,41 @@
+const Profile = {
+  "data": [
+    {
+      "name": "Почта",
+      "value": "pochta@ya.ru",
+      "iname": "email",
+      "type": "email"
+    },
+    {
+      "name": "Логин",
+      "value": "ivanivanov",
+      "iname": "login",
+      "type": "text"
+    },
+    {
+      "name": "Имя",
+      "value": "Иван",
+      "iname": "first_name",
+      "type": "text"
+    },
+    {
+      "name": "Фамилия",
+      "value": "Иванов",
+      "iname": "second_name",
+      "type": "text"
+    },
+    {
+      "name": "Имя в чате",
+      "value": "Иван",
+      "iname": "display_name",
+      "type": "text"
+    },
+    {
+      "name": "Телефон",
+      "value": "+7 (909) 967 30 30",
+      "iname":  "phone",
+      "type": "phone"
+    }
+  ]
+}
+export { Profile }

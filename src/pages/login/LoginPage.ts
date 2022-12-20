@@ -1,8 +1,8 @@
 import { Block, registerComponent } from '../../core';
-import { FormLogin} from '../../modules/auth';
+import { FormLogin } from '../../modules/auth';
 
 registerComponent(FormLogin);
- const LoginPage = class extends Block {
+const LoginPage = class extends Block {
    render(): string {
     //language=hbs
     return `<div>

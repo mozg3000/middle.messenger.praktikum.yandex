@@ -28,7 +28,6 @@ $color_block_bgd: #FBFBFB;
         height: 130px;
         border-radius: 130px;
         background: #EFEFEF;
-        background-image: url("../assets/images/profile/avatar.svg");
         background-position: center center;
         background-repeat: no-repeat;
 }

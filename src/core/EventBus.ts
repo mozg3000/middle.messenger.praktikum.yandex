@@ -1,8 +1,7 @@
-export type Listener<T extends unknown[] = any[]> = (...args: T) => void;
+export type Listener<T extends unknown[] = any[]> = (...args: T) => void; // eslint-disable-line no-unused-vars
 
-export default class EventBus<E extends string = string, M extends { [K in E]: unknown[] } = Record<E, any[]>> {
-  private listeners: { [key in E]?: Listener<M[E]>[] } = {};
-
+export default class EventBus<E extends string = string, M extends { [K in E]: unknown[] } = Record<E, any[]>> { // eslint-disable-line no-unused-vars
+  private listeners: { [key in E]?: Listener<M[E]>[] } = {}; // eslint-disable-line no-unused-vars
   on(event: E, callback: Listener<M[E]>) {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
