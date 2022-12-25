@@ -1,4 +1,5 @@
 @import "../modules/profile/profile.css";
+@import "./chat/chat.css";
 
 $color_danger: #FF2F2F;
 $color_shadow: rgba(0, 0, 0, 0.25);

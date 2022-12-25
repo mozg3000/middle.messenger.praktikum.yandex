@@ -7,6 +7,7 @@ import { HomePage } from './pages/home';
 import { ProfilePage } from './pages/profile';
 import { NotFound } from './pages/404';
 import { ServerError } from "./pages/500";
+import { Chat } from './pages/chat';
 
 const path: string = window.location.pathname
 let component: Block
@@ -26,6 +27,10 @@ switch (path) {
   }
   case '/profile': {
     component = new ProfilePage({})
+    break
+  }
+  case '/chat': {
+    component = new Chat({})
     break
   }
   case '/404': {

@@ -1,0 +1,88 @@
+.chat {
+  width: 1280px;
+  height: 720px;
+}
+.chat-list {
+  width: 310px;
+  background-color: #FBFBFB;;
+}
+.profile_block {
+  text-align: right;
+  padding: 21px 10px;
+}
+.profile_link {
+  color: #999999;
+}
+.search_block {
+  text-align: center;
+}
+.search_block__input {
+  background-color: #EFEFEF;
+  border-radius: 5px;
+  padding: 5px 15px;
+}
+.chat-list_block {
+  margin-top: 14px;
+  padding: 0 10px;
+  color: #999999;
+}
+.chat-list_item {
+  height: 71px;
+}
+.avatar_block {
+  padding: 12px;
+}
+.avatar__img {
+  width: 47px;
+  height: 47px;
+  border-radius: 47px;
+  background: #EFEFEF;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.message_block {
+  padding: 12px 0;
+  flex-grow: 1;
+}
+.message_block p {
+  margin: 0;
+}
+.notification_block {
+  width: 40px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 9px;
+  line-height: 13px;
+  text-align: right;
+  padding: 5px;
+}
+.notification_block p {
+  margin: 0;
+}
+.messages-box {
+  width: 100%;
+}
+.messages-list {
+  flex-grow: 1;
+}
+.send_block__input {
+  width: 100%;
+  background: #EFEFEF;
+  border-radius: 30px;
+  padding: 10px 20px;
+}
+.attach_btn {
+  width: 30px;
+}
+.send_btn {
+  width: 30px;
+}
+.sent_input {
+  width: 80%;
+}
+.chat-list_item__active {
+  background-color: #E4EDFD;
+}
+.chat-list_item:hover {
+  background-color: #E4EDFD;
+}

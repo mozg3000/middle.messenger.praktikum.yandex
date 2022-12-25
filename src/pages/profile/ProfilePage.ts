@@ -74,6 +74,7 @@ const ProfilePage = class extends Block {
         {{{ 
           Avatar
             url=avatarUrl
+            className="avatar-block__image"
         }}}
         <div class="profile-name">
           Иван
