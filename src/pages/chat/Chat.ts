@@ -51,7 +51,7 @@ const Chat = class extends Block {
       <div class="messages-box flex d-column f-center">
         {{#if selected}}
           <div class="messages-list">
-            
+            Тут будут сообщения
           </div>
           <div class="messages-box-send flex f-between">
             <div class="attach_btn">
