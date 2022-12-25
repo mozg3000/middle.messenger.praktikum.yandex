@@ -59,7 +59,7 @@ const FormLogin = class extends Block {
     //language=hbs
     return `<form name="login" method="post" action="/login" class="form ma flex d-column f-between">
       <div class="form__top mt-40">
-        <h1 class="form__title t-center">Вход</h1>
+        <h1 class="form-title t-center">Вход</h1>
           <div class="form-group flex d-column mt-30">
             {{{
               InputGroup

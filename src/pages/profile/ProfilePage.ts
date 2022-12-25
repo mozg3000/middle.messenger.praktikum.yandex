@@ -67,7 +67,7 @@ const ProfilePage = class extends Block {
       <div class="back-block absolute">
         <a href="/">
           <svg
-            class="back-block__arrow"
+            class="back-block-arrow"
             width="24px"
             height="24px"
             viewBox="0 0 24 24"
@@ -81,7 +81,7 @@ const ProfilePage = class extends Block {
         {{{ 
           Avatar
             url=avatarUrl
-            className="avatar-block__image"
+            className="avatar-block-image"
         }}}
         <div class="profile-name">
           Иван
@@ -99,7 +99,7 @@ const ProfilePage = class extends Block {
             {{{
               Button
                 type="submit"
-                className="btn btn__primary w-100"
+                className="btn btn-primary w-100"
                 title="Сохранить"
                 onClick=handleSaveEditClick
             }}}

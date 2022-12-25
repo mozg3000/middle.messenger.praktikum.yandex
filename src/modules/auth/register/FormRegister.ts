@@ -60,9 +60,9 @@ const FormRegister = class extends Block {
   protected render(): string {
     //language=hbs
     return `
-    <form name="register" method="post" action="/register" class="form form_register ma flex d-column f-between">
+    <form name="register" method="post" action="/register" class="form form-register ma flex d-column f-between">
       <div class="form__top mt-40">
-        <h1 class="form__title t-center">Регистрация</h1>
+        <h1 class="form-title t-center">Регистрация</h1>
         <div class="form-group flex d-column mt-30">
         {{{
           InputGroup

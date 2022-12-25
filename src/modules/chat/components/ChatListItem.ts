@@ -17,21 +17,21 @@ const ChatListItem = class extends Block {
     //language=hbs
     return `
     <section 
-      class="chat-list_item flex f-between {{#if active}}chat-list_item__active{{/if}}"
+      class="chat-list-item flex f-between {{#if active}}chat-list-item-active{{/if}}"
       data-id="{{chatId}}"
     >
-      <div class="avatar_block">
+      <div class="avatar-block">
         {{{
           Avatar
             url=avatarUrl
-            className="avatar__img"
+            className="avatar-img"
         }}}
       </div>
-      <div class="message_block">
+      <div class="message-block">
         <p>{{{nickname}}}</p>
         <p>{{{lastMessage}}}</p>
       </div>
-      <div class="notification_block flex d-column f-between">
+      <div class="notification-block flex d-column f-between">
         <div>
           <p>{{{timestamp}}}</p>
         </div>

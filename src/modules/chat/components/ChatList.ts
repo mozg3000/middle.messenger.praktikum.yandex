@@ -21,7 +21,7 @@ const ChatList = class extends Block {
   protected render(): string {
     //language=hbs
     return `
-      <article class="chat-list_block">
+      <article class="chat-list-block">
         ${this.props.chat.map(c => {
           return `
             {{{

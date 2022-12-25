@@ -1,7 +1,7 @@
 const initProps = {
   btnTitle: 'Регистрация',
   btnType: 'submit',
-  btnClassName: 'btn btn__primary w-100',
+  btnClassName: 'btn btn-primary w-100',
   loginInputType: 'text',
   loginInputName: 'login',
   loginInputId: 'login_input',

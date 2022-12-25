@@ -7,8 +7,8 @@ const Action = class extends Block {
   protected render(): string {
     //language=hbs
     return `
-      <div class="info__bottom">
-        <div class="info__item flex f-between">
+      <div class="info-bottom">
+        <div class="info-item flex f-between">
           {{{
             Link
               url='javascript::void(0)' 
@@ -16,7 +16,7 @@ const Action = class extends Block {
               click=handleEditClick
           }}}
         </div>
-        <div class="info__item flex f-between">
+        <div class="info-item flex f-between">
           {{{
             Link 
               url='javascript::void(0)' 
