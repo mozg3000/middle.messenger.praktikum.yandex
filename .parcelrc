@@ -4,8 +4,9 @@
     "*.hbs": ["@anikin/parcel-transformer-handlebars"]
   },
   "validators": {
-         "*.{js,mjs,jsm,jsx,es6,cjs,ts,tsx}": [
-            "@parcel/validator-eslint"
-         ]
-     }
+     "*.{js,mjs,jsm,jsx,es6,cjs,ts,tsx}": [
+        "@parcel/validator-eslint"
+     ]
+  },
+  "optimizers": { "*.html": [] }
 }
