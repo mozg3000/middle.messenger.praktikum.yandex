@@ -6,23 +6,28 @@ const InfoItem = class extends Block {
     //language=hbs
     return `
       <div class="info__item flex f-between">
-        <div class="label"><p>{{data.name}}</p></div>
+        <div class="label"><p>{{name}}</p></div>
         <div class="description">
           {{#if edit}}
             {{{
-              Input
-                name=data.iname
-                id=data.iname
-                value=data.value
-                className="profile__input" 
-                type=data.type
+            InputGroup
+              title=""
+              id=passwordInputId
+              name=iname
+              type=type
+              value=value
+              id=iname
+              focus=handler
+              blur=handler
+              change=change
+              ref=inputRef
             }}}
           {{else}}
-            <p>{{data.value}}</p>
+            <p>{{value}}</p>
           {{/if}}
         </div>
       </div>`
   }
 }
 export { InfoItem }
-//className="profile__input" type=data.type}}
+

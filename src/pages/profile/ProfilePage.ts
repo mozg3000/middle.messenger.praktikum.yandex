@@ -3,13 +3,15 @@ import { Avatar } from '../../modules/profile/components';
 import { Info } from '../../modules/profile/components/Info';
 import { Action } from '../../modules/profile/components';
 import { Profile } from './initProps';
+import { Validator } from '../../lib/validators';
+import { ruleSet } from '../../modules/auth/register/RegisterRuleSet';
 
 registerComponent(Avatar)
 registerComponent(Info)
 registerComponent(Action)
 const ProfilePage = class extends Block {
+  private _validator: Validator;
   constructor() {
-    console.log('import.meta.url=', import.meta.url)
     super({
       avatarUrl: new URL('../../assets/images/profile/avatar.svg', import.meta.url),
       data: Profile.data,
@@ -21,8 +23,35 @@ const ProfilePage = class extends Block {
       handleSaveEditClick: (event: Event) => {
         event.preventDefault()
         this.props.edit = false
+      },
+      handler: () => this.validateInputs(),
+      change: () => {
+        const refs: { [p: string ]: Block } = this.refs.infoBlock.refs
+        for (const ref: string in refs) {
+          refs[ref].refs[ref].refs.errorBlock.props.message = ''
+        }
       }
-    });
+    })
+    this._validator = new Validator(ruleSet)
+  }
+  validateInputs():void {
+    const refs: { [p: string ]: Block } = this.refs.infoBlock.refs
+    for (const ref: string in refs) {
+      const inputComponent: Nullable<Block> = refs[ref].refs[ref].refs.input // eslint-disable-line no-undef
+      if (inputComponent) {
+        const inputElement: Nullable<HTMLInputElement> = inputComponent._element as HTMLInputElement // eslint-disable-line no-undef
+        const value: string = inputElement.value
+        const name: string = inputElement.name
+        let error: boolean = !this._validator.validate(name, value)
+        if (error) {
+          this.setError(ref, name)
+        }
+      }
+    }
+  }
+  setError(refName: string, type: string):void {
+    this.refs.infoBlock.refs[refName].refs[refName].refs.errorBlock.props.error = true // eslint-disable-line
+    this.refs.infoBlock.refs[refName].refs[refName].refs.errorBlock.props.message = this._validator.getFirstError(type)
   }
   protected render(): string {
     //language=hbs
@@ -54,11 +83,14 @@ const ProfilePage = class extends Block {
             Info
               profile=data
               editItem=edit
+              handler=handler
+              change=change
+              ref="infoBlock"
           }}}
           {{#if edit}}
             {{{
               Button
-                type=submit
+                type="submit"
                 className="btn btn__primary w-100"
                 title="Сохранить"
                 onClick=handleSaveEditClick

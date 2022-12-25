@@ -5,6 +5,8 @@ import { LoginPage } from './pages/login';
 import { RegisterPage } from './pages/register';
 import { HomePage } from './pages/home';
 import { ProfilePage } from './pages/profile';
+import { NotFound } from './pages/404';
+import { ServerError } from "./pages/500";
 
 const path: string = window.location.pathname
 let component: Block
@@ -24,6 +26,14 @@ switch (path) {
   }
   case '/profile': {
     component = new ProfilePage({})
+    break
+  }
+  case '/404': {
+    component = new NotFound({})
+    break
+  }
+  case '/500': {
+    component = new ServerError({})
     break
   }
 }

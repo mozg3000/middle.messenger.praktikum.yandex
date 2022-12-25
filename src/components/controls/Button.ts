@@ -16,9 +16,8 @@ const Button = class extends Block {
     });
     
   }
-
-  //language=hbs
   render(): string {
+    //language=hbs
     return `<button type="{{type}}" class="{{className}}">{{title}}</button>`
   }
 }

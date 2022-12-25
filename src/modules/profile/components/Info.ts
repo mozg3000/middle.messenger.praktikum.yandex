@@ -6,13 +6,21 @@ const Info = class extends Block {
     //language=hbs
     return `
       <div class="info__block flex d-column">
-        {{#each profile}}
-          {{{
-            InfoItem
-              data=this
-              edit=../editItem
-          }}}
-        {{/each}}
+        ${this.props.profile.map(p => {
+          return `
+            {{{
+              InfoItem
+                value="${p.value}"
+                name="${p.name}"
+                iname="${p.iname}"
+                type="${p.type}"
+                inputRef="${p.ref}"
+                ref="${p.ref}"
+                edit=${this.props.editItem}
+                handler=handler
+                change=change
+            }}}`
+        }).join(' ')}
       </div>`
   }
 }
