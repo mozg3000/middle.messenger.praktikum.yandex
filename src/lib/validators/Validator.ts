@@ -11,7 +11,7 @@ const Validator = class {
     let valid: boolean = false
     const rules: Rule[] = this._rules[type] ?? []
     for (const rule: Rule of rules) {
-      const valid: boolean = rule.check(value)
+      valid = rule.check(value)
       if (!valid){
         this._messages[type] = {
           [rule.getName()]: (rule.getMessage())
