@@ -25,9 +25,9 @@ const ruleSet = {
   ],
   phone: [
     new RequireRule(),
-    new RegExRule(/^\+7[0-9]*/, {contain: 'Должен содержать только цифры и начинаться с +7'}, true),
-    new RegExRule(/^\+7[0-9]*([\w\.&%$~^\[\]{}?#@\*\(\)=!\/\/]*)[0-9]*$/, {notContain: 'Должен содержать только цифры'}), // eslint-disable-line
-    new LengthRule(12, {min: 'Должен быть не меньше 11 цифр', max: 'Должен быть не больше 11 цифр'}, 12)
+    new RegExRule(/^\+?7[0-9]*/, {contain: 'Должен содержать только цифры и начинаться с +7'}, true),
+    new RegExRule(/^\+?7[0-9]*([\w\.&%$~^\[\]{}?#@\*\(\)=!\/\/]*)[0-9]*$/, {notContain: 'Должен содержать только цифры'}), // eslint-disable-line
+    new LengthRule(10, {min: 'Должен быть не меньше 11 цифр', max: 'Должен быть не больше 15 цифр'}, 15)
   ],
   password: [
     new RequireRule(),
