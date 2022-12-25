@@ -3,6 +3,7 @@ import { Link } from '../../../components/controls';
 
 registerComponent(Link)
 const Action = class extends Block {
+  static componentName = 'Action'
   protected render(): string {
     //language=hbs
     return `
@@ -16,9 +17,10 @@ const Action = class extends Block {
           }}}
         </div>
         <div class="info__item flex f-between">
-          {{{Link 
-            url='javascript::void(0)' 
-            text='Изменить пароль'
+          {{{
+            Link 
+              url='javascript::void(0)' 
+              text='Изменить пароль'
           }}}
         </div>
           {{{
@@ -30,6 +32,3 @@ const Action = class extends Block {
   }
 }
 export { Action }
-// {{> 'components/controls/ms_link' url='javascript::void(0)' text='Изменить данные' }}
-// {{> 'components/controls/ms_link' url='javascript::void(0)' text='Изменить пароль' }}
-// {{> 'components/controls/ms_link' url='/' text='Выйти' }}

@@ -7,6 +7,7 @@ registerComponent(Input);
 registerComponent(Label);
 registerComponent(ErrorMessage);
 const InputGroup = class extends Block {
+  static componentName = 'InputGroup'
   render() {
     // language=hbs
     return `<div class="form-group flex d-column mt-30">

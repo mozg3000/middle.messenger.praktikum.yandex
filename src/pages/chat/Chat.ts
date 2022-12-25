@@ -6,6 +6,9 @@ registerComponent(ChatList)
 registerComponent(Link)
 registerComponent(Input)
 const Chat = class extends Block {
+
+  static componentName = 'Chat'
+
   constructor() {
     super({
       selected: false,

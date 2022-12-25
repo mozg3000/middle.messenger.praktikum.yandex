@@ -1,7 +1,10 @@
 import { Block, registerComponent } from '../../../core';
 import { Avatar } from '../../profile/components';
+
 registerComponent(Avatar)
+
 const ChatListItem = class extends Block {
+  static componentName = 'ChatListItem'
   constructor(props) {
     super({
       ...props,

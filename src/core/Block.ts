@@ -1,5 +1,5 @@
 import EventBus from './EventBus';
-import {nanoid} from 'nanoid';
+import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 
 interface BlockMeta<P = any> {
@@ -27,6 +27,8 @@ export default class Block<P = any> {
 
   protected state: any = {};
   protected refs: {[key: string]: Block} = {};
+
+  componentName: string = ''
 
   public constructor(props?: P) {
     const eventBus = new EventBus<Events>();

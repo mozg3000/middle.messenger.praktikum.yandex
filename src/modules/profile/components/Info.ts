@@ -2,10 +2,11 @@ import { Block, registerComponent } from '../../../core';
 import { InfoItem } from './InfoItem';
 registerComponent(InfoItem)
 const Info = class extends Block {
+  static componentName = 'Info'
   protected render(): string {
     //language=hbs
     return `
-      <div class="info__block flex d-column">
+      <form name="profile" class="info__block flex d-column">
         ${this.props.profile.map(p => {
           return `
             {{{
@@ -21,7 +22,7 @@ const Info = class extends Block {
                 change=change
             }}}`
         }).join(' ')}
-      </div>`
+      </form>`
   }
 }
 export { Info }

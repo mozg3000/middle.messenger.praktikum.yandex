@@ -1,6 +1,7 @@
 import { Block } from '../../core';
 
 const NotFound = class extends Block {
+  static componentName = 'NotFound'
   protected render(): string {
     //language=hbs
     return `

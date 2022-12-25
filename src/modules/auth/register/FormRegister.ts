@@ -9,14 +9,18 @@ registerComponent(Button)
 registerComponent(Link)
 
 const FormRegister = class extends Block {
+  static componentName = 'FormRegister'
   private _validator: Validator
 
   constructor() {
     super({
       ...initProps,
       handleClick: (event: Event) => {
+        if (this.validateInputs()) {
+          const registerFormData: FormData = new FormData(document.forms.register)
+          console.log(Object.fromEntries(registerFormData))
+        }
         event.preventDefault()
-        this.validateInputs()
       },
       handleFocus: () => this.validateInputs(),
       handleBlur: () => this.validateInputs(),
@@ -31,20 +35,23 @@ const FormRegister = class extends Block {
     })
     this._validator = new Validator(ruleSet)
   }
-  validateInputs():void {
+  validateInputs():boolean {
     const refs: { [p: string ]: Block } = this.refs
+    let error: boolean = false
     for (const ref: string in refs) {
       const inputComponent: Nullable<Block> = refs[ref].refs.input // eslint-disable-line no-undef
       if (inputComponent) {
         const inputElement: Nullable<HTMLInputElement> = inputComponent._element as HTMLInputElement // eslint-disable-line no-undef
         const value: string = inputElement.value
         const name: string = inputElement.name
-        let error = !this._validator.validate(name, value)
+        error = !this._validator.validate(name, value)
+
         if (error) {
           this.setError(ref, name)
         }
       }
     }
+    return !error
   }
   setError(refName: string, type: string):void {
     this.refs[refName].refs.errorBlock.props.error = true // eslint-disable-line

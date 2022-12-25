@@ -1,6 +1,8 @@
 import { Block } from '../../core';
 
 const HomePage = class extends Block {
+
+  static componentName = 'HomePage'
   protected render(): string {
     //language=hbs
     return `

@@ -1,6 +1,17 @@
 import { Block } from '../../../core';
 
+interface AvatarProps {
+  url: string,
+  className: string
+}
+
 const Avatar = class extends Block {
+  static componentName = 'Avatar'
+
+  constructor(props: AvatarProps) {
+    super(props);
+  }
+
   protected render(): string {
     //language=hbs
     return `
@@ -13,4 +24,3 @@ const Avatar = class extends Block {
 }
 
 export { Avatar }
-// background-image: url("../assets/images/profile/avatar.svg");

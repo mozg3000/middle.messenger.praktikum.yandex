@@ -2,6 +2,7 @@ import { Block, registerComponent } from '../../../core';
 import { Input } from '../../../components/controls';
 registerComponent(Input)
 const InfoItem = class extends Block {
+  static componentName = 'InfoItem'
   render(): string {
     //language=hbs
     return `

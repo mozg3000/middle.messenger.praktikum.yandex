@@ -10,6 +10,7 @@ registerComponent(Avatar)
 registerComponent(Info)
 registerComponent(Action)
 const ProfilePage = class extends Block {
+  static componentName = 'ProfilePage'
   private _validator: Validator;
   constructor() {
     super({
@@ -22,7 +23,11 @@ const ProfilePage = class extends Block {
       },
       handleSaveEditClick: (event: Event) => {
         event.preventDefault()
-        this.props.edit = false
+        if (this.validateInputs()) {
+          const profileFormData: FormData = new FormData(document.forms.profile)
+          console.log(Object.fromEntries(profileFormData))
+          this.props.edit = false
+        }
       },
       handler: () => this.validateInputs(),
       change: () => {
@@ -34,20 +39,22 @@ const ProfilePage = class extends Block {
     })
     this._validator = new Validator(ruleSet)
   }
-  validateInputs():void {
+  validateInputs():boolean {
     const refs: { [p: string ]: Block } = this.refs.infoBlock.refs
+    let error: boolean = false
     for (const ref: string in refs) {
       const inputComponent: Nullable<Block> = refs[ref].refs[ref].refs.input // eslint-disable-line no-undef
       if (inputComponent) {
         const inputElement: Nullable<HTMLInputElement> = inputComponent._element as HTMLInputElement // eslint-disable-line no-undef
         const value: string = inputElement.value
         const name: string = inputElement.name
-        let error: boolean = !this._validator.validate(name, value)
+        error = !this._validator.validate(name, value)
         if (error) {
           this.setError(ref, name)
         }
       }
     }
+    return !error
   }
   setError(refName: string, type: string):void {
     this.refs.infoBlock.refs[refName].refs[refName].refs.errorBlock.props.error = true // eslint-disable-line

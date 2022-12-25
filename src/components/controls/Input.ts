@@ -13,6 +13,7 @@ interface InputProps {
 }
 
 const Input = class extends Block {
+  static componentName = 'Input'
   constructor(props: InputProps) {
     super({
       ...props,

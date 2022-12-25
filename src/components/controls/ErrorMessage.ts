@@ -1,6 +1,14 @@
 import { Block } from '../../core';
 
+interface ErrorMessageProps {
+  error: boolean,
+  message: string
+}
 const ErrorMessage = class extends Block {
+  static componentName = 'ErrorMessage'
+  constructor(props: ErrorMessageProps) {
+    super(props);
+  }
   render() {
     //language=hbs
     return `

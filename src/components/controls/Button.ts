@@ -7,6 +7,7 @@ interface ButtonProps {
   
 }
 const Button = class extends Block {
+  static  componentName = 'Button'
   constructor(props: ButtonProps) {
     super({
       ...props,

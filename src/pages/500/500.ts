@@ -1,6 +1,7 @@
 import { Block } from '../../core';
 
 const ServerError = class extends Block {
+  static componentName = 'ServerError'
   protected render(): string {
     //language=hbs
     return `

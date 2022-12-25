@@ -15,27 +15,27 @@ const ruleSet = {
   ],
   first_name: [
     new RequireRule(),
-    new RegExRule(/^[A-Za-zА-Яа-я]/, {contain: 'Должен начинаться с букв'}, true),
+    new RegExRule(/^[A-ZА-Я]/, {contain: 'Должен начинаться с заглавных букв'}, true),
     new RegExRule(/^\w*([&%$~^\[\]{}?#@\*\(\)=!\/\/]*)\w*$/, {notContain: 'Содержит недопустимые символы'}) // eslint-disable-line
   ],
   second_name: [
     new RequireRule(),
-    new RegExRule(/^[A-Za-zА-Яа-я]/, {contain: 'Должен начинаться с букв'}, true),
+    new RegExRule(/^[A-ZА-Я]/, {contain: 'Должен начинаться с заглавных букв'}, true),
     new RegExRule(/^\w*([&%$~^\[\]{}?#@\*\(\)=!\/\/]*)\w*$/, {notContain: 'Содержит недопустимые символы'}) // eslint-disable-line
   ],
   phone: [
     new RequireRule(),
     new RegExRule(/^\+7[0-9]*/, {contain: 'Должен содержать только цифры и начинаться с +7'}, true),
     new RegExRule(/^\+7[0-9]*([\w\.&%$~^\[\]{}?#@\*\(\)=!\/\/]*)[0-9]*$/, {notContain: 'Должен содержать только цифры'}), // eslint-disable-line
-    new LengthRule(12, {min: 'Должен быть не меньше 11 цифр', max: 'Должен быть не больше 11 цифр'}, 11)
+    new LengthRule(12, {min: 'Должен быть не меньше 11 цифр', max: 'Должен быть не больше 11 цифр'}, 12)
   ],
   password: [
     new RequireRule(),
-    new LengthRule(8, {min: 'Слишком короткий пароль'})
+    new LengthRule(8, {min: 'Слишком короткий пароль', max: 'Слишком длинный пароль'}, 40)
   ],
   password_repeat: [
     new RequireRule(),
-    new LengthRule(8, {min: 'Слишком короткий пароль'})
+    new LengthRule(8, {min: 'Слишком короткий пароль', max: 'Слишком длинный пароль'}, 40)
   ]
 }
 export { ruleSet }
