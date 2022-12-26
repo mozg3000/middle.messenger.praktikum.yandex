@@ -8,7 +8,6 @@ import { ProfilePage } from './pages/profile';
 import { NotFound } from './pages/404';
 import { ServerError } from "./pages/500";
 import { Chat } from './pages/chat';
-import {HTTPTransport} from "./lib/http";
 
 const path: string = window.location.pathname
 let component: Block
