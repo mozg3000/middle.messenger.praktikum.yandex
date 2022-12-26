@@ -45,8 +45,6 @@ switch (path) {
     break
   }
 }
-const t = new HTTPTransport()
-
 document.addEventListener('DOMContentLoaded', () => {
     renderDOM(component);
 });
