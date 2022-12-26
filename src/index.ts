@@ -12,6 +12,8 @@ import { Chat } from './pages/chat';
 const path: string = window.location.pathname
 let component: Block
 
+console.log(path)
+
 switch (path) {
   case '/': {
     component = new HomePage({})
@@ -42,7 +44,7 @@ switch (path) {
     break
   }
 }
-
+console.log(component)
 document.addEventListener('DOMContentLoaded', () => {
     renderDOM(component);
 });
