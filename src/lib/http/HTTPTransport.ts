@@ -18,24 +18,23 @@ function queryStringify(data) {
 }
 
 class HTTPTransport {
-  get = (url, options = {}) => {
-
+  get = (url, options: Object = {}): Promise<XMLHttpRequest> => {
     return this.request(url, {...options, method: METHODS.GET}, options.timeout);
   };
 
-  post = (url, options = {}) => {
+  post = (url: string, options: Object = {}): Promise<XMLHttpRequest> => {
     return this.request(url, {...options, method: METHODS.POST}, options.timeout);
   };
 
-  put = (url, options = {}) => {
+  put = (url: string, options: Object = {}): Promise<XMLHttpRequest> => {
     return this.request(url, {...options, method: METHODS.PUT}, options.timeout);
   };
 
-  delete = (url, options = {}) => {
+  delete = (url: string, options: Object = {}): Promise<XMLHttpRequest> => {
     return this.request(url, {...options, method: METHODS.DELETE}, options.timeout);
   };
 
-  request = (url, options = {}, timeout = 5000) => {
+  request = (url: string, options: Object = {}, timeout: number = 5000): Promise<XMLHttpRequest> => {
     const {headers = {}, method, data} = options;
 
     return new Promise(function(resolve, reject) {

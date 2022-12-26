@@ -8,6 +8,7 @@ import { ProfilePage } from './pages/profile';
 import { NotFound } from './pages/404';
 import { ServerError } from "./pages/500";
 import { Chat } from './pages/chat';
+import {HTTPTransport} from "./lib/http";
 
 const path: string = window.location.pathname
 let component: Block
@@ -44,7 +45,10 @@ switch (path) {
     break
   }
 }
-console.log(component)
+const t = new HTTPTransport()
+t.get('https://ya.ru')
+  .then(r => console.log(r))
+  .catch(e => console.log(e.originalTarget.status))
 document.addEventListener('DOMContentLoaded', () => {
     renderDOM(component);
 });
