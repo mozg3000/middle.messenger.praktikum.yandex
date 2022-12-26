@@ -1,8 +1,1 @@
-from = "/chat"
-to = "/"
-from = "/profile"
-to = "/"
-from = "/login"
-to = "/"
-from = "/register"
-to = "/"
+/* /
