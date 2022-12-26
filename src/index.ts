@@ -46,9 +46,7 @@ switch (path) {
   }
 }
 const t = new HTTPTransport()
-t.get('https://ya.ru')
-  .then(r => console.log(r))
-  .catch(e => console.log(e.originalTarget.status))
+
 document.addEventListener('DOMContentLoaded', () => {
     renderDOM(component);
 });
