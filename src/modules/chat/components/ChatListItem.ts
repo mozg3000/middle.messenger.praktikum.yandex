@@ -1,6 +1,5 @@
 import { Block, registerComponent } from '../../../core';
 import { Avatar } from '../../profile/components';
-import {AvatarProps} from "../../profile/components/Avatar";
 
 registerComponent(Avatar)
 
