@@ -1,4 +1,4 @@
-const Profile = {
+const ProfileData = {
   "data": [
     {
       "name": "Почта",
@@ -50,4 +50,4 @@ const Profile = {
     }
   ]
 }
-export { Profile }
+export { ProfileData }

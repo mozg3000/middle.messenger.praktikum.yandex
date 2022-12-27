@@ -1,21 +1,32 @@
 import { Block, registerComponent } from '../../core';
 import { Avatar } from '../../modules/profile/components';
-import { Info } from '../../modules/profile/components/Info';
+import {Info, Profile } from '../../modules/profile/components/Info';
 import { Action } from '../../modules/profile/components';
-import { Profile } from './initProps';
+import { ProfileData } from './initProps';
 import { Validator } from '../../lib/validators';
 import { ruleSet } from '../../modules/auth/register/RegisterRuleSet';
 
 registerComponent(Avatar)
 registerComponent(Info)
 registerComponent(Action)
-const ProfilePage = class extends Block {
+
+interface ProfilePageProps {
+  avatarUrl: URL,
+  data: Profile[],
+  edit: boolean,
+  handleEditClick: (event: Event) => void, // eslint-disable-line no-unused-vars
+  handleSaveEditClick: (event: Event) => void, // eslint-disable-line no-unused-vars
+  handler: () => void,
+  change: () => void
+}
+
+const ProfilePage = class extends Block<ProfilePageProps> {
   static componentName = 'ProfilePage'
   private _validator: Validator;
   constructor() {
     super({
       avatarUrl: new URL('../../assets/images/profile/avatar.svg', import.meta.url),
-      data: Profile.data,
+      data: ProfileData.data,
       edit: false,
       handleEditClick: (event: Event) => {
         this.props.edit = true
@@ -63,7 +74,7 @@ const ProfilePage = class extends Block {
   protected render(): string {
     //language=hbs
     return `
-    <div>
+    <main>
       <div class="back-block absolute">
         <a href="/">
           <svg
@@ -111,7 +122,7 @@ const ProfilePage = class extends Block {
           {{/if}}
         </div>
       </div>
-    </div>`
+    </main>`
   }
 }
 export { ProfilePage }

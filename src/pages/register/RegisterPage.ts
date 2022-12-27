@@ -3,13 +3,15 @@ import { FormRegister } from '../../modules/auth';
 
 registerComponent(FormRegister)
 
-const RegisterPage = class extends Block {
+interface RegisterPageProps {}
+
+const RegisterPage = class extends Block<RegisterPageProps> {
   static componentName = 'RegisterPage'
   protected render(): string {
     //language=hbs
-    return `<div>
+    return `<main>
       {{{ FormRegister }}}
-    </div>`
+    </main>`
   }
 }
 export { RegisterPage }

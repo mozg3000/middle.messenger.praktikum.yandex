@@ -1,18 +1,19 @@
 import { Block } from '../../core';
 
 interface InputProps {
-  focus: (event: Event) => void, // eslint-disable-line no-unused-vars
-  blur: (event: Event) => void, // eslint-disable-line no-unused-vars
-  change: (event: Event) => void, // eslint-disable-line no-unused-vars
+  focus?: (event: Event) => void, // eslint-disable-line no-unused-vars
+  blur?: (event: Event) => void, // eslint-disable-line no-unused-vars
+  change?: (event: Event) => void, // eslint-disable-line no-unused-vars
   type: string,
-  name: string,
-  className: string,
-  placeholder: string,
-  value: string,
-  id: string
+  name?: string,
+  className?: string,
+  placeholder?: string,
+  value?: string,
+  id?: string,
+  events?: { [key: string]: (event?: Event) => void } // eslint-disable-line no-unused-vars
 }
 
-const Input = class extends Block {
+const Input = class extends Block<InputProps> {
   static componentName = 'Input'
   constructor(props: InputProps) {
     super({
@@ -38,4 +39,4 @@ const Input = class extends Block {
       >`
   }
 }
-export { Input }
+export { Input, InputProps }

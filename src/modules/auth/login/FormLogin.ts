@@ -8,7 +8,32 @@ registerComponent(InputGroup)
 registerComponent(Button)
 registerComponent(Link)
 
-const FormLogin = class extends Block {
+interface FormLoginProps {
+  btnTitle?: string,
+  btnType?: string,
+  btnClassName?: string,
+  loginInputType?: string,
+  loginInputName?: string,
+  loginInputId?: string,
+  loginTitle?: string,
+  passwordInputType?: string,
+  passwordInputName?: string,
+  passwordInputId?: string,
+  passwordTitle?: string,
+  registerLinkText?: string,
+  registerLinkUrl?: string,
+  registerLinkClassName?: string,
+  loginError?: boolean,
+  loginErrorMessage?: string,
+  passwordError?: boolean,
+  passwordErrorMessage?: string,
+  handleClick?: (event: Event) => void // eslint-disable-line no-unused-vars
+  handleFocus?: () => void
+  handleBlur?: () => void
+  handleChange?: () => void
+}
+
+const FormLogin = class extends Block<FormLoginProps> {
   static componentName = 'FormLogin'
   private _validator: Validator
   constructor() {
@@ -21,8 +46,12 @@ const FormLogin = class extends Block {
         }
         event.preventDefault()
       },
-      handleFocus: () => this.validateInputs(),
-      handleBlur: () => this.validateInputs(),
+      handleFocus: () => {
+        this.validateInputs()
+      },
+      handleBlur: () => {
+        this.validateInputs()
+      },
       handleChange: () => {
         const refs: { [p: string ]: Block } = this.refs
         for (const ref: string in refs) {
@@ -71,7 +100,7 @@ const FormLogin = class extends Block {
                 message=loginErrorMessage
                 value=loginInputValue
                 focus=handleFocus
-                blur=handleBlurv
+                blur=handleBlur
                 change=handleChange
                 ref='loginInputRef'
             }}}
@@ -85,7 +114,7 @@ const FormLogin = class extends Block {
                 error=passwordError
                 message=passwordErrorMessage
                 focus=handleFocus
-                blur=handleBlurv
+                blur=handleBlur
                 change=handleChange
                 ref='passwordInputRef'
             }}}

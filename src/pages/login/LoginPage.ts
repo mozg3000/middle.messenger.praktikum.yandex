@@ -2,13 +2,16 @@ import { Block, registerComponent } from '../../core';
 import { FormLogin } from '../../modules/auth';
 
 registerComponent(FormLogin);
-const LoginPage = class extends Block {
+
+interface LoginPageProps {}
+
+const LoginPage = class extends Block<LoginPageProps> {
   static componentName = 'LoginPage'
    render(): string {
     //language=hbs
-    return `<div>
+    return `<main>
       {{{ FormLogin }}}
-    </div>`
+    </main>`
   }
 }
 export { LoginPage }

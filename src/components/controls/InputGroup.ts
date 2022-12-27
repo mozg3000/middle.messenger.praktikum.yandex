@@ -1,12 +1,14 @@
 import { Block, registerComponent } from '../../core';
-import { Input } from './Input';
-import { Label } from './Label';
-import { ErrorMessage } from './ErrorMessage';
+import { Input, InputProps } from './Input';
+import { Label, LabelProps } from './Label';
+import { ErrorMessage, ErrorMessageProps } from './ErrorMessage';
 
 registerComponent(Input);
 registerComponent(Label);
 registerComponent(ErrorMessage);
-const InputGroup = class extends Block {
+
+interface InputGroupProps extends InputProps, LabelProps, ErrorMessageProps {}
+const InputGroup = class extends Block<InputGroupProps> {
   static componentName = 'InputGroup'
   render() {
     // language=hbs
@@ -38,4 +40,4 @@ const InputGroup = class extends Block {
     </div>`
   }
 }
-export { InputGroup }
+export { InputGroup, InputGroupProps }

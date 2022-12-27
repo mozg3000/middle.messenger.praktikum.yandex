@@ -5,7 +5,15 @@ import { Link, Input } from '../../components/controls';
 registerComponent(ChatList)
 registerComponent(Link)
 registerComponent(Input)
-const Chat = class extends Block {
+
+interface ChatProps {
+  selected: false,
+  selectedId: number | string,
+  authorId: number | string
+  handleSelectChat: (event: Event) => void // eslint-disable-line no-unused-vars
+}
+
+const Chat = class extends Block<ChatProps> {
 
   static componentName = 'Chat'
 

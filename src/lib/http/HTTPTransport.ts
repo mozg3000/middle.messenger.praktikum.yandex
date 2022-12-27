@@ -17,24 +17,27 @@ function queryStringify(data) {
   }, '?');
 }
 
+type HTTPRequest = (url: string, options?: Object, timeout?: number) => Promise<XMLHttpRequest>
+type HTTPMethod = Pick<HTTPRequest, 'url' | 'options'>
+
 class HTTPTransport {
-  get = (url, options: Object = {}): Promise<XMLHttpRequest> => {
+  get: HTTPMethod = (url, options = {}) => {
     return this.request(url, {...options, method: METHODS.GET}, options.timeout);
   };
 
-  post = (url: string, options: Object = {}): Promise<XMLHttpRequest> => {
+  post: HTTPMethod = (url, options = {}) => {
     return this.request(url, {...options, method: METHODS.POST}, options.timeout);
   };
 
-  put = (url: string, options: Object = {}): Promise<XMLHttpRequest> => {
+  put: HTTPMethod = (url, options = {}) => {
     return this.request(url, {...options, method: METHODS.PUT}, options.timeout);
   };
 
-  delete = (url: string, options: Object = {}): Promise<XMLHttpRequest> => {
+  delete: HTTPMethod = (url, options = {}) => {
     return this.request(url, {...options, method: METHODS.DELETE}, options.timeout);
   };
 
-  request = (url: string, options: Object = {}, timeout: number = 5000): Promise<XMLHttpRequest> => {
+  request: HTTPRequest = (url, options = {}, timeout = 5000) => {
     const {headers = {}, method, data} = options;
 
     return new Promise(function(resolve, reject) {

@@ -8,7 +8,62 @@ registerComponent(InputGroup)
 registerComponent(Button)
 registerComponent(Link)
 
-const FormRegister = class extends Block {
+interface FormRegisterProps {
+  btnTitle?: string,
+  btnType?: string,
+  btnClassName?: string,
+  loginInputType?: string,
+  loginInputName?: string,
+  loginInputId?: string,
+  loginTitle?: string,
+  passwordInputType?: string,
+  passwordInputName?: string,
+  passwordInputId?: string,
+  passwordTitle?: string,
+  passwordError?: boolean,
+  passwordErrorMessage?: string,
+  passwordRepeatTitle?: string,
+  passwordRepeatInputId?: string,
+  passwordRepeatInputName?: string,
+  passwordRepeatInputType?: string,
+  passwordRepeatError?: boolean,
+  passwordErrorRepeatMessage?: string,
+  loginLinkText?: string,
+  loginLinkUrl?: string,
+  loginLinkClassName?: string,
+  loginError?: boolean,
+  loginErrorMessage?: string,
+  emailInputType?: string,
+  emailInputName?: string,
+  emailInputId?: string,
+  emailTitle?: string,
+  emailError?: boolean,
+  emailErrorMessage?: string,
+  firstnameTitle?: string,
+  firstnameInputId?: string,
+  firstnameInputName?: string,
+  firstnameInputType?: string,
+  firstnameError?: boolean,
+  firstnameErrorMessage?: string,
+  secondnameTitle?: string,
+  secondnameInputId?: string,
+  secondnameInputName?: string,
+  secondnameInputType?: string,
+  secondnameError?: boolean,
+  secondnameErrorMessage?: string,
+  phoneTitle?: string,
+  phoneInputId?: string,
+  phoneInputName?: string,
+  phoneInputType?: string,
+  phoneError?: boolean,
+  phoneErrorMessage?: string,
+  handleClick?: (event: Event) => void // eslint-disable-line no-unused-vars
+  handleFocus?: () => void
+  handleBlur?: () => void
+  handleChange?: () => void
+}
+
+const FormRegister = class extends Block<FormRegisterProps> {
   static componentName = 'FormRegister'
   private _validator: Validator
 

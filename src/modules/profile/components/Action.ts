@@ -2,7 +2,12 @@ import { Block, registerComponent } from '../../../core';
 import { Link } from '../../../components/controls';
 
 registerComponent(Link)
-const Action = class extends Block {
+
+interface ActionProps {
+  handleEditClick: (event: Event) => void // eslint-disable-line no-unused-vars
+}
+
+const Action = class extends Block<ActionProps> {
   static componentName = 'Action'
   protected render(): string {
     //language=hbs

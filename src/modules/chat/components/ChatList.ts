@@ -4,12 +4,29 @@ import { chatList } from './initProps';
 
 registerComponent(ChatListItem)
 
-interface ChatListProps {
-  selectedId: number
-  selectChat: (event: Event) => void // eslint-disable-line no-unused-vars
+type ChatItem = {
+  id: number,
+  nickname: string,
+  lastMessage: string,
+  timestamp: string,
+  newMessageNumber: number,
+  avatarUrl: string
 }
 
-const ChatList = class extends Block {
+type Message = {
+  text: string,
+  timestamp: string,
+  authorId: number | string
+}
+
+interface ChatListProps {
+  selectedId: number
+  selectChat: (event: Event) => void, // eslint-disable-line no-unused-vars
+  chat?: ChatItem[]
+  messages?: { [id: number|string]: Message[] }
+}
+
+const ChatList = class extends Block<ChatListProps> {
   static componentName = 'ChatList'
   constructor(props: ChatListProps) {
     super({

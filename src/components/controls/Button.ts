@@ -1,12 +1,14 @@
 import { Block } from '../../core'
+
 interface ButtonProps {
-  onClick: (event: Event) => void;  // eslint-disable-line no-unused-vars
+  onClick?: (event: Event) => void; // eslint-disable-line no-unused-vars
   type: string,
-  className: string,
+  className?: string,
   title: string,
-  
+  events?: { [key: string]: (event?: Event) => void } // eslint-disable-line no-unused-vars
 }
-const Button = class extends Block {
+
+const Button = class extends Block<ButtonProps> {
   static  componentName = 'Button'
   constructor(props: ButtonProps) {
     super({
@@ -22,4 +24,4 @@ const Button = class extends Block {
     return `<button type="{{type}}" class="{{className}}">{{title}}</button>`
   }
 }
-export { Button }
+export { Button, ButtonProps }

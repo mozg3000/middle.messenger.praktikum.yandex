@@ -1,14 +1,16 @@
 import { Block } from '../../core';
 
-const NotFound = class extends Block {
+interface NotFoundProps {}
+
+const NotFound = class extends Block<NotFoundProps> {
   static componentName = 'NotFound'
   protected render(): string {
     //language=hbs
     return `
-      <div>
+      <main>
         <h1>Page Not Found</h1>
         <p>Sorry, but the page you were trying to view does not exist.</p>
-      </div>`
+      </main>`
   }
 }
 export { NotFound }

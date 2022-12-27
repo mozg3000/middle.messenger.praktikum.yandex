@@ -1,7 +1,18 @@
 import { Block, registerComponent } from '../../../core';
 import { Input } from '../../../components/controls';
 registerComponent(Input)
-const InfoItem = class extends Block {
+
+interface InfoItemProps {
+  iname: string,
+  name?: string,
+  type: string,
+  value: string,
+  handler: () => void,
+  change: () => void,
+  inputRef: string
+}
+
+const InfoItem = class extends Block<InfoItemProps> {
   static componentName = 'InfoItem'
   render(): string {
     //language=hbs
@@ -13,7 +24,6 @@ const InfoItem = class extends Block {
             {{{
             InputGroup
               title=""
-              id=passwordInputId
               name=iname
               type=type
               value=value

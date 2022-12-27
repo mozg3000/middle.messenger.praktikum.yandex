@@ -1,11 +1,24 @@
 import { Block, registerComponent } from '../../../core';
 import { Avatar } from '../../profile/components';
+import {AvatarProps} from "../../profile/components/Avatar";
 
 registerComponent(Avatar)
 
-const ChatListItem = class extends Block {
+interface ChatItemProps{
+  avatarUrl: string,
+  chatId: number | string,
+  active: boolean,
+  nickname: string,
+  lastMessage: string,
+  timestamp: string,
+  newMassageNumber: number | string,
+  events?: { [key: string]: (event?: Event) => void } // eslint-disable-line no-unused-vars
+  select?: (event: Event) => void // eslint-disable-line no-unused-vars
+}
+
+const ChatListItem = class extends Block<ChatItemProps> {
   static componentName = 'ChatListItem'
-  constructor(props) {
+  constructor(props: ChatItemProps) {
     super({
       ...props,
       events: {

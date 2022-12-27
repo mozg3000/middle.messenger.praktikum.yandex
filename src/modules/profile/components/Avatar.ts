@@ -2,15 +2,11 @@ import { Block } from '../../../core';
 
 interface AvatarProps {
   url: string,
-  className: string
+  className?: string
 }
 
-const Avatar = class extends Block {
+const Avatar = class extends Block<AvatarProps> {
   static componentName = 'Avatar'
-
-  constructor(props: AvatarProps) {
-    super(props);
-  }
 
   protected render(): string {
     //language=hbs
@@ -23,4 +19,4 @@ const Avatar = class extends Block {
   }
 }
 
-export { Avatar }
+export { Avatar, AvatarProps }

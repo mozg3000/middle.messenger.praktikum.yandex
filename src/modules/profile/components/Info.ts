@@ -1,7 +1,24 @@
 import { Block, registerComponent } from '../../../core';
 import { InfoItem } from './InfoItem';
 registerComponent(InfoItem)
-const Info = class extends Block {
+
+type Profile = {
+  name: string,
+  value: string,
+  iname: string,
+  type: string,
+  ref: string
+}
+
+interface InfoProps {
+  editItem: boolean,
+  ref: string,
+  handler: () => void,
+  change: () => void,
+  profile: Profile[]
+}
+
+const Info = class extends Block<InfoProps> {
   static componentName = 'Info'
   protected render(): string {
     //language=hbs
@@ -25,4 +42,4 @@ const Info = class extends Block {
       </form>`
   }
 }
-export { Info }
+export { Info, Profile }
