@@ -1,5 +1,5 @@
 import { Store, renderDOM, CoreRouter } from '../core';
-import { getScreenComponent, Screens } from '../lib/infrastructure/screenList'; // eslint-disable-line
+import { getScreenComponent, Screens } from '../lib/infrastructure/screenList';
 
 const routes = [
   {
@@ -8,15 +8,25 @@ const routes = [
     shouldAuthorized: false,
   },
   {
+    path: '/login',
+    block: Screens.Login,
+    shouldAuthorized: false,
+  },
+  {
+    path: '/register',
+    block: Screens.Register,
+    shouldAuthorized: false,
+  },
+  {
     path: '/profile',
     block: Screens.Profile,
     shouldAuthorized: true,
   },
-  {
-    path: '*',
-    block: Screens.Login,
-    shouldAuthorized: false,
-  },
+  // {
+  //   path: '*',
+  //   block: Screens.Login,
+  //   shouldAuthorized: false,
+  // },
 ];
 
 export function initRouter(router: CoreRouter, store: Store<AppState>) { // eslint-disable-line no-undef
@@ -44,7 +54,7 @@ export function initRouter(router: CoreRouter, store: Store<AppState>) { // esli
     if (prevState.screen !== nextState.screen) {
       const Page = getScreenComponent(nextState.screen);
       renderDOM(new Page({}));
-      document.title = `App / ${Page.componentName}`;
+      document.title = `${Page.componentName}`;
     }
   });
 }
