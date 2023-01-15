@@ -1,3 +1,5 @@
+import { TransportInterface } from '../../interfaces/TransportInterface';
+
 const METHODS = {
   GET: 'GET',
   POST: 'POST',
@@ -16,28 +18,28 @@ function queryStringify(data) {
   }, '?');
 }
 
-type HTTPRequest = (url: string, options?: Object, timeout?: number) => Promise<XMLHttpRequest>
+type HTTPRequest = (url: string, options?: Object, timeout?: number) => Promise<Object> // eslint-disable-line no-unused-vars
 type HTTPMethod = Pick<HTTPRequest, 'url' | 'options'>
 
-class HTTPTransport {
+class HTTPTransport implements TransportInterface {
   get: HTTPMethod = (url, options = {}) => {
-    return this.request(url, {...options, method: METHODS.GET}, options.timeout);
+    return this.send(url, {...options, method: METHODS.GET}, options.timeout);
   };
 
   post: HTTPMethod = (url, options = {}) => {
-    return this.request(url, {...options, method: METHODS.POST}, options.timeout);
+    return this.send(url, {...options, method: METHODS.POST}, options.timeout);
   };
 
   put: HTTPMethod = (url, options = {}) => {
-    return this.request(url, {...options, method: METHODS.PUT}, options.timeout);
+    return this.send(url, {...options, method: METHODS.PUT}, options.timeout);
   };
 
   delete: HTTPMethod = (url, options = {}) => {
-    return this.request(url, {...options, method: METHODS.DELETE}, options.timeout);
+    return this.send(url, {...options, method: METHODS.DELETE}, options.timeout);
   };
 
-  request: HTTPRequest = (url, options = {}, timeout = 5000) => {
-    const {headers = {}, method, data} = options;
+  send: HTTPRequest = (url, options = {}, timeout = 5000) => {
+    const { headers = {}, method, data } = options;
 
     return new Promise(function(resolve, reject) {
       if (!method) {
@@ -55,12 +57,23 @@ class HTTPTransport {
           : url,
       );
 
+      xhr.withCredentials = true
       Object.keys(headers).forEach(key => {
         xhr.setRequestHeader(key, headers[key]);
       });
 
       xhr.onload = function() {
-        resolve(xhr.response);
+        if (xhr.status === 200) {
+          let r
+          try {
+            r = JSON.parse(xhr.response)
+          } catch (e) {
+            r = xhr.response
+          }
+          resolve(r)
+        } else {
+          reject(xhr)
+        }
       };
 
       xhr.onabort = reject;
@@ -72,10 +85,10 @@ class HTTPTransport {
       if (isGet || !data) {
         xhr.send();
       } else {
-        xhr.send(data);
+        xhr.send(JSON.stringify(data));
       }
     });
   };
 }
 
-export { HTTPTransport }
+export { HTTPTransport, HTTPRequest }

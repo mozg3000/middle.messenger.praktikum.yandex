@@ -1,5 +1,5 @@
 import EventBus from './EventBus';
-
+/* eslint-disable */
 export type Dispatch<State> = (
   nextStateOrAction: Partial<State> | Action<State>,
   payload?: any,
@@ -10,7 +10,7 @@ export type Action<State> = (
   state: State,
   payload: any,
 ) => void;
-
+/* eslint-disable */
 export class Store<State extends Record<string, any>> extends EventBus {
   private state: State = {} as State;
 

@@ -1,2 +1,4 @@
 import { HTTPTransport } from './HTTPTransport';
-export { HTTPTransport }
+import { Client } from './Client';
+
+export { HTTPTransport, Client }
