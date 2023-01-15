@@ -10,7 +10,6 @@ function queryStringify(data) {
     throw new Error('Data must be object');
   }
 
-  // Здесь достаточно и [object Object] для объекта
   const keys = Object.keys(data);
   return keys.reduce((result, key, index) => {
     return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
@@ -61,7 +60,7 @@ class HTTPTransport {
       });
 
       xhr.onload = function() {
-        resolve(xhr);
+        resolve(xhr.response);
       };
 
       xhr.onabort = reject;

@@ -2,6 +2,11 @@ import EventBus from './EventBus';
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 
+export interface BlockClass<P> extends Function {
+  new (props: P): Block<P>; // eslint-disable-line no-unused-vars
+  componentName?: string;
+}
+
 interface BlockMeta<P = any> {
   props: P;
 }
