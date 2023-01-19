@@ -21,12 +21,14 @@ export const login = async (
   action: LoginPayload,
 ) => {
   dispatch({ isLoading: true, loginFormError: null })
-  const client = new AuthApi()
+  let client = new AuthApi()
   try {
     await client.login(action)
+    client = new AuthApi()
     const userInfo = await client.userInfo()
     dispatch({ user: userInfo } as Partial<AppState>) // eslint-disable-line no-undef
     dispatch({ isLoading: false })
+    console.log('here we go')
     window.router.go('/chats')
   } catch (e) {
     console.log(e)

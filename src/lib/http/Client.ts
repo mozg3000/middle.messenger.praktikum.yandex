@@ -4,6 +4,7 @@ import { TransportInterface } from '../../interfaces';
 class Client {
   public request: (path: string, options: {}) => Promise<Object>; // eslint-disable-line no-unused-vars
   private transport: TransportInterface;
+  private opt: {}
   constructor(transport: TransportInterface) {
     this.transport = transport;
     this.request = this.createRequest(
@@ -20,13 +21,18 @@ class Client {
 
   createRequest (baseUrl: string, baseOptions: {} = {}) {
     return  (path: string, options: {} = {}) => {
-      const opt = mergeDeep(baseOptions, options)
-      const { isMultiPart } = opt
+      this.opt = mergeDeep(baseOptions, options)
+      const { isMultiPart } = this.opt
       if (isMultiPart) {
-        delete opt.headers['Content-Type']
+        delete this.opt.headers['Content-Type']
       }
-      return this.transport.send(`${baseUrl}${path}`, opt)
+      console.log(this.opt)
+      return this.transport.send(`${baseUrl}${path}`, this.opt)
     }
+  }
+
+  cleanOpt() {
+    this.opt = {}
   }
 }
 
