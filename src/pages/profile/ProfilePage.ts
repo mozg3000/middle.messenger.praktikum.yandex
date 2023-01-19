@@ -22,7 +22,7 @@ interface ProfilePageProps {
   handleSaveEditClick: (event: Event) => void, // eslint-disable-line no-unused-vars
   handler: () => void,
   change: () => void,
-  handleLogout: () => void,
+  handleLogout: (event: Event) => void, // eslint-disable-line no-unused-vars
   handleChangePassword: (event: Event) => void // eslint-disable-line no-unused-vars
   handleChangePass: (event: Event) => void // eslint-disable-line no-unused-vars
   handleChangeAvatar: (event: Event) => void // eslint-disable-line no-unused-vars
@@ -62,7 +62,8 @@ const ProfilePage = class extends Block<ProfilePageProps> {
           refs[ref].refs[ref].refs.errorBlock.props.message = ''
         }
       },
-      handleLogout: () => {
+      handleLogout: (event: Event) => {
+        event.preventDefault()
         window.store.dispatch(logout)
       },
       handleChangePassword: (event: Event) => {

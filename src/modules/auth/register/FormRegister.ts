@@ -230,7 +230,7 @@ const FormRegister = class extends Block<FormRegisterProps> {
         {{{
           Link 
             text=loginLinkText
-            url=loginLinkUrl 
+            url="javascript:window.router.go('/')" 
             className=loginLinkClassName
         }}}
       </div>

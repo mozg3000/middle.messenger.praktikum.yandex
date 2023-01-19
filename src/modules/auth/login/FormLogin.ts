@@ -132,7 +132,7 @@ const FormLogin = class extends Block<FormLoginProps> {
         {{{
           Link 
             text=registerLinkText
-            url=registerLinkUrl 
+            url="javascript:window.router.go('/register')" 
             className=registerLinkClassName
         }}}
       </div>
