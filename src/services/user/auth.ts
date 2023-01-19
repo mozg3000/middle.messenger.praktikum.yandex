@@ -28,7 +28,6 @@ export const login = async (
     const userInfo = await client.userInfo()
     dispatch({ user: userInfo } as Partial<AppState>) // eslint-disable-line no-undef
     dispatch({ isLoading: false })
-    console.log('here we go')
     window.router.go('/chats')
   } catch (e) {
     console.log(e)
@@ -56,9 +55,12 @@ export const register = async (
   action: RegisterPayload
 ) => {
   dispatch({ isLoading: true, registerFormError: null })
-  const client = new AuthApi()
+  let client = new AuthApi()
   try {
     await client.register(action)
+    client = new AuthApi()
+    const userInfo = await client.userInfo()
+    dispatch({ user: userInfo } as Partial<AppState>) // eslint-disable-line no-undef
     dispatch({ isLoading: false })
     window.router.go('/chats')
   } catch (e) {
