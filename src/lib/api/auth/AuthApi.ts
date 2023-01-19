@@ -5,6 +5,15 @@ type LoginRequestData = {
   password: string;
 };
 
+type RegisterRequestData = {
+  first_name: string,
+  second_name: string,
+  login: string,
+  email: string,
+  password: string,
+  phone: string
+}
+
 class AuthApi extends BaseApi {
   login(data: LoginRequestData) {
     return this.client.request(
@@ -26,6 +35,16 @@ class AuthApi extends BaseApi {
 
   userInfo() {
     return this.client.request('/auth/user')
+  }
+
+  register(data: RegisterRequestData) {
+    return this.client.request(
+      '/auth/signup',
+      {
+        method: 'POST',
+        data
+      }
+    )
   }
 }
 

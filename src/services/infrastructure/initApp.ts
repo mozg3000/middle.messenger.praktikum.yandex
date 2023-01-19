@@ -3,13 +3,12 @@ import { AuthApi } from '../../lib/api/auth/AuthApi';
 
 export async function initApp(dispatch: Dispatch<AppState>) { // eslint-disable-line no-undef
   try {
-    console.log('Init App')
     const client = new AuthApi()
-    const r = await client.userInfo()
-    console.log(r)
+    const userinfo = await client.userInfo()
+    dispatch({ user: userinfo as User }) // eslint-disable-line no-undef
   } catch (err) {
-    console.log('error', err);
+    console.log('error', err)
   } finally {
-    dispatch({ appIsInited: true });
+    dispatch({ appIsInited: true })
   }
 }

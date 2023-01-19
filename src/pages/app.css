@@ -59,3 +59,7 @@ $color_link_text: #aab5cf;
 .danger {
   color: $color_danger;
 }
+
+.save-avatar-btn {
+  text-align: center;
+}

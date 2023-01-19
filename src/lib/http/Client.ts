@@ -20,7 +20,12 @@ class Client {
 
   createRequest (baseUrl: string, baseOptions: {} = {}) {
     return  (path: string, options: {} = {}) => {
-      return this.transport.send(`${baseUrl}${path}`, mergeDeep(baseOptions, options))
+      const opt = mergeDeep(baseOptions, options)
+      const { isMultiPart } = opt
+      if (isMultiPart) {
+        delete opt.headers['Content-Type']
+      }
+      return this.transport.send(`${baseUrl}${path}`, opt)
     }
   }
 }

@@ -22,6 +22,11 @@ const routes = [
     block: Screens.Profile,
     shouldAuthorized: true,
   },
+  {
+    path: '/chats',
+    block: Screens.Chats,
+    shouldAuthorized: true,
+  },
   // {
   //   path: '*',
   //   block: Screens.Login,

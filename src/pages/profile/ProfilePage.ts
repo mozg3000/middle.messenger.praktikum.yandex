@@ -5,29 +5,44 @@ import { Action } from '../../modules/profile/components';
 import { ProfileData } from './initProps';
 import { Validator } from '../../lib/validators';
 import { ruleSet } from '../../modules/auth/register/RegisterRuleSet';
+import { logout } from '../../services/user/auth';
+import { changeAvatar, updateProfile } from '../../services/user/profile';
+import { changeUserPassword } from '../../services/user/user';
 
 registerComponent(Avatar)
 registerComponent(Info)
 registerComponent(Action)
 
 interface ProfilePageProps {
-  avatarUrl: URL,
-  data: Profile[],
+  avatarUrl: URL | string,
+  data: Profile[], // eslint-disable-line
   edit: boolean,
+  changePass: boolean,
   handleEditClick: (event: Event) => void, // eslint-disable-line no-unused-vars
   handleSaveEditClick: (event: Event) => void, // eslint-disable-line no-unused-vars
   handler: () => void,
-  change: () => void
+  change: () => void,
+  handleLogout: () => void,
+  handleChangePassword: (event: Event) => void // eslint-disable-line no-unused-vars
+  handleChangePass: (event: Event) => void // eslint-disable-line no-unused-vars
+  handleChangeAvatar: (event: Event) => void // eslint-disable-line no-unused-vars
 }
 
 const ProfilePage = class extends Block<ProfilePageProps> {
   static componentName = 'ProfilePage'
   private _validator: Validator;
   constructor() {
-    super({
-      avatarUrl: new URL('../../assets/images/profile/avatar.svg', import.meta.url),
-      data: ProfileData.data,
+    const user = () => window.store.getState().user // as User // eslint-disable-line no-undef
+    const userInfo: (user: () => User) => Profile[] = (user: () => User) => (ProfileData.data as Array<Profile>).map(infoItem => ({ // eslint-disable-line
+      ...infoItem,
+      value: user()[infoItem.iname]
+    }))
+    const data = userInfo(user)
+    super({ // eslint-disable-next-line no-undef
+      avatarUrl: user().avatar ? `${process.env.API_ENDPOINT}/resources/${encodeURI(user().avatar)}` : new URL('../../assets/images/profile/avatar.svg', import.meta.url),
+      data,
       edit: false,
+      changePass: false,
       handleEditClick: (event: Event) => {
         this.props.edit = true
         event.preventDefault()
@@ -36,7 +51,7 @@ const ProfilePage = class extends Block<ProfilePageProps> {
         event.preventDefault()
         if (this.validateInputs()) {
           const profileFormData: FormData = new FormData(document.forms.profile)
-          console.log(Object.fromEntries(profileFormData))
+          window.store.dispatch(updateProfile, Object.fromEntries(profileFormData))
           this.props.edit = false
         }
       },
@@ -46,6 +61,25 @@ const ProfilePage = class extends Block<ProfilePageProps> {
         for (const ref: string in refs) {
           refs[ref].refs[ref].refs.errorBlock.props.message = ''
         }
+      },
+      handleLogout: () => {
+        window.store.dispatch(logout)
+      },
+      handleChangePassword: (event: Event) => {
+        this.props.changePass = true
+        event.preventDefault()
+      },
+      handleChangePass: (event: Event) => {
+        event.preventDefault()
+        const changeUserPassFormData: FormData = new FormData(document.forms.changePass)
+        window.store.dispatch(changeUserPassword, Object.fromEntries(changeUserPassFormData))
+        this.props.changePass = false
+      },
+      handleChangeAvatar: (event: Event) => {
+        event.preventDefault()
+        const changeAvatarFormData: FormData = new FormData()
+        changeAvatarFormData.append('avatar', document.forms.changeAvatar.elements[0].files[0])
+        window.store.dispatch(changeAvatar, changeAvatarFormData)
       }
     })
     this._validator = new Validator(ruleSet)
@@ -71,12 +105,13 @@ const ProfilePage = class extends Block<ProfilePageProps> {
     this.refs.infoBlock.refs[refName].refs[refName].refs.errorBlock.props.error = true // eslint-disable-line
     this.refs.infoBlock.refs[refName].refs[refName].refs.errorBlock.props.message = this._validator.getFirstError(type)
   }
+
   protected render(): string {
     //language=hbs
     return `
     <main>
       <div class="back-block absolute">
-        <a href="/">
+        <a href="javascript:window.router.go('/chats')">
           <svg
             class="back-block-arrow"
             width="24px"
@@ -97,6 +132,18 @@ const ProfilePage = class extends Block<ProfilePageProps> {
         <div class="profile-name">
           Иван
         </div>
+        <div class="profile-name">
+          <form action="/" name="changeAvatar">
+            <input id="avatar" type="file" name="avatar" accept="image/*">
+            {{{
+              Button
+                type="submit"
+                className="btn btn-primary save-avatar-btn"
+                title="Сохранить"
+                onClick=handleChangeAvatar
+            }}}
+          </form>
+        </div>
         <div class="info">
           {{{
             Info
@@ -106,6 +153,21 @@ const ProfilePage = class extends Block<ProfilePageProps> {
               change=change
               ref="infoBlock"
           }}}
+          {{#if changePass}}
+            <form action="/" name="changePass" class="flex d-column">
+                <label for="oldPassId">старый пароль</label>
+              <input type="password" name="oldPassword" id="oldPassId">
+                <label for="newPassId">новый пароль</label>
+                <input type="password" name="newPassword" id="newPassId">
+                {{{
+                Button
+                  type="submit"
+                  className="btn btn-primary w-100"
+                  title="Сохранить"
+                  onClick=handleChangePass
+                }}}
+            </form>
+          {{/if}}
           {{#if edit}}
             {{{
               Button
@@ -118,6 +180,8 @@ const ProfilePage = class extends Block<ProfilePageProps> {
             {{{
               Action
                 handleEditClick=handleEditClick
+                handleLogout=handleLogout
+                handleChangePassword=handleChangePassword
             }}}
           {{/if}}
         </div>
