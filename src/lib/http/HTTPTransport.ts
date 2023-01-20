@@ -40,7 +40,6 @@ class HTTPTransport implements TransportInterface {
 
   send: HTTPRequest = (url, options = {}, timeout = 5000) => {
     const { headers = {}, method, data, isMultiPart } = options
-    console.log(data)
     return new Promise(function(resolve, reject) {
       if (!method) {
         reject('No method')

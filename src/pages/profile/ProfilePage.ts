@@ -8,14 +8,15 @@ import { ruleSet } from '../../modules/auth/register/RegisterRuleSet';
 import { logout } from '../../services/user/auth';
 import { changeAvatar, updateProfile } from '../../services/user/profile';
 import { changeUserPassword } from '../../services/user/user';
+import { withStore } from '../../lib/infrastructure';
 
 registerComponent(Avatar)
 registerComponent(Info)
 registerComponent(Action)
 
 interface ProfilePageProps {
-  avatarUrl: URL | string,
-  data: Profile[], // eslint-disable-line
+  avatarUrl: () => URL | string,
+  data: () => Profile[], // eslint-disable-line
   edit: boolean,
   changePass: boolean,
   handleEditClick: (event: Event) => void, // eslint-disable-line no-unused-vars
@@ -31,16 +32,19 @@ interface ProfilePageProps {
 const ProfilePage = class extends Block<ProfilePageProps> {
   static componentName = 'ProfilePage'
   private _validator: Validator;
-  constructor() {
-    const user = () => window.store.getState().user // as User // eslint-disable-line no-undef
-    const userInfo: (user: () => User) => Profile[] = (user: () => User) => (ProfileData.data as Array<Profile>).map(infoItem => ({ // eslint-disable-line
-      ...infoItem,
-      value: user()[infoItem.iname]
-    }))
-    const data = userInfo(user)
+  constructor(props) {
     super({ // eslint-disable-next-line no-undef
-      avatarUrl: user().avatar ? `${process.env.API_ENDPOINT}/resources/${encodeURI(user().avatar)}` : new URL('../../assets/images/profile/avatar.svg', import.meta.url),
-      data,
+      avatarUrl: () => props.store.getState().user && props.store.getState().user.avatar
+        ? `${process.env.API_ENDPOINT}/resources/${encodeURI(props.store.getState().user.avatar)}`
+        : new URL('../../assets/images/profile/avatar.svg', import.meta.url),
+      data: () => props.store.getState().user
+        ? ((ProfileData.data as Array<Profile>).map(infoItem => {
+          return ({
+            ...infoItem,
+            value: props.store.getState().user[infoItem.iname]
+          })
+        }))
+        : ProfileData.data,
       edit: false,
       changePass: false,
       handleEditClick: (event: Event) => {
@@ -51,7 +55,7 @@ const ProfilePage = class extends Block<ProfilePageProps> {
         event.preventDefault()
         if (this.validateInputs()) {
           const profileFormData: FormData = new FormData(document.forms.profile)
-          window.store.dispatch(updateProfile, Object.fromEntries(profileFormData))
+          props.store.dispatch(updateProfile, Object.fromEntries(profileFormData))
           this.props.edit = false
         }
       },
@@ -64,7 +68,7 @@ const ProfilePage = class extends Block<ProfilePageProps> {
       },
       handleLogout: (event: Event) => {
         event.preventDefault()
-        window.store.dispatch(logout)
+        props.store.dispatch(logout)
       },
       handleChangePassword: (event: Event) => {
         this.props.changePass = true
@@ -73,14 +77,14 @@ const ProfilePage = class extends Block<ProfilePageProps> {
       handleChangePass: (event: Event) => {
         event.preventDefault()
         const changeUserPassFormData: FormData = new FormData(document.forms.changePass)
-        window.store.dispatch(changeUserPassword, Object.fromEntries(changeUserPassFormData))
+        props.store.dispatch(changeUserPassword, Object.fromEntries(changeUserPassFormData))
         this.props.changePass = false
       },
       handleChangeAvatar: (event: Event) => {
         event.preventDefault()
         const changeAvatarFormData: FormData = new FormData()
         changeAvatarFormData.append('avatar', document.forms.changeAvatar.elements[0].files[0])
-        window.store.dispatch(changeAvatar, changeAvatarFormData)
+        props.store.dispatch(changeAvatar, changeAvatarFormData)
       }
     })
     this._validator = new Validator(ruleSet)
@@ -191,3 +195,4 @@ const ProfilePage = class extends Block<ProfilePageProps> {
   }
 }
 export { ProfilePage }
+export default withStore(ProfilePage)

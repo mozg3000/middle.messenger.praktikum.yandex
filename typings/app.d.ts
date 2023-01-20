@@ -13,6 +13,9 @@ declare global {
     profileFormError: string | null
     changePasswordFormError: string | null
     user: User | null
+    chats: [],
+    users: [],
+    messages: []
   };
 
   export type User = {

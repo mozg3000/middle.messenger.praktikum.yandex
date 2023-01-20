@@ -35,7 +35,8 @@ export const changeAvatar = async (
   dispatch({ isLoading: true, profileFormError: null })
   const client = new UserApi()
   try {
-    await client.changeAvatar(action)
+    const userInfo = await client.changeAvatar(action)
+    dispatch({ user: userInfo })
   } catch (e) {
     console.log(e)
     dispatch({ isLoading: false, profileFormError: e.response.reason })

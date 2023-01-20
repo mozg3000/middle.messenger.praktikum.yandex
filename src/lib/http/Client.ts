@@ -26,7 +26,6 @@ class Client {
       if (isMultiPart) {
         delete this.opt.headers['Content-Type']
       }
-      console.log(this.opt)
       return this.transport.send(`${baseUrl}${path}`, this.opt)
     }
   }

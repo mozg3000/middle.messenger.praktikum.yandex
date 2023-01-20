@@ -1,8 +1,8 @@
 import { LoginPage } from '../../pages/login';
-import { ProfilePage } from '../../pages/profile';
+import ProfilePage from '../../pages/profile/ProfilePage';
 import { BlockClass } from '../../core';
 import { RegisterPage } from '../../pages/register';
-import { Chat } from "../../pages/chat";
+import Chat from "../../pages/chat/Chat";
 
 /* eslint-disable */
 export enum Screens {
