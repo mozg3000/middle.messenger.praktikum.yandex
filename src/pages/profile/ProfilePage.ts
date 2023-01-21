@@ -35,7 +35,7 @@ const ProfilePage = class extends Block<ProfilePageProps> {
   constructor(props) {
     super({ // eslint-disable-next-line no-undef
       avatarUrl: () => props.store.getState().user && props.store.getState().user.avatar
-        ? `${process.env.API_ENDPOINT}/resources/${encodeURI(props.store.getState().user.avatar)}`
+        ? `${process.env.API_ENDPOINT}/resources/${encodeURI(props.store.getState().user.avatar)}`  // eslint-disable-line no-undef
         : new URL('../../assets/images/profile/avatar.svg', import.meta.url),
       data: () => props.store.getState().user
         ? ((ProfileData.data as Array<Profile>).map(infoItem => {

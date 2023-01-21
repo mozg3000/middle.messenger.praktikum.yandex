@@ -45,6 +45,15 @@ class ChatApi extends BaseApi {
       }
     )
   }
+
+  getToken(id: number) {
+    return this.client.request(
+      `/chats/token/${id}`,
+      {
+        method: 'POST'
+      }
+    )
+  }
 }
 
 export { ChatApi }

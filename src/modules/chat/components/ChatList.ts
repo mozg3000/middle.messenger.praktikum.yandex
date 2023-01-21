@@ -38,7 +38,7 @@ const ChatList = class extends Block<ChatListProps> {
     super({
       ...props,
       chats: () => props.store.getState().chats
-    });
+    } as ChatListProps);
   }
   protected render(): string {
     //language=hbs

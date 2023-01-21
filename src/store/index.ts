@@ -9,5 +9,8 @@ export const defaultState: AppState = { // eslint-disable-line no-undef
   user: null, // eslint-disable-line no-undef
   chats: [],
   users: [],
-  messages: []
+  messages: [],
+  token: null,
+  intervalId: null,
+  socket:  null
 };

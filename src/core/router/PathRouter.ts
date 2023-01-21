@@ -9,7 +9,7 @@ export class PathRouter implements CoreRouter {
     if (!this.isStarted) {
       this.isStarted = true;
 
-      window.onpopstate = (event: PopStateEvent) => {
+      window.onpopstate = (event: PopStateEvent) => { // eslint-disable-line no-unused-vars
         this.onRouteChange.call(this);
       };
 

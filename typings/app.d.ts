@@ -13,9 +13,12 @@ declare global {
     profileFormError: string | null
     changePasswordFormError: string | null
     user: User | null
-    chats: [],
-    users: [],
-    messages: []
+    chats: Array<Chat>,
+    users: Array<User>,
+    messages: Array<Message>,
+    token: string | null,
+    intervalId: number | null
+    socket: WebSocket | null
   };
 
   export type User = {
@@ -28,6 +31,28 @@ declare global {
     phone: string
     email: string
   };
+
+  export type Message = {
+    content: string
+    type: string
+    time: string
+    id: number
+    user_id: number
+  }
+
+  export type Chat = {
+    "id": number
+    "title": string
+    "avatar": string | null
+    "created_by": number
+    "unread_count": number
+    "last_message": {
+      "user": User
+      "time": string
+      "content": string,
+      "id": number
+    }
+  }
 }
 
 export {}
