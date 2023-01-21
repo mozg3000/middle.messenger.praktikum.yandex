@@ -170,8 +170,8 @@ const Chat = class extends Block<ChatProps> {
                   {{{
                     Button
                       type="submit"
-                      className="btn btn-primary"
-                      title="Create new chat"
+                      className="btn btn-primary btn-send"
+                      title="send"
                       onClick=handleSendMessage
                   }}}
                 <div class="send-btn">
