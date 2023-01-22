@@ -1,6 +1,5 @@
 import { Block, registerComponent } from '../../../core';
 import { ChatListItem } from './ChatListItem';
-import { withStore } from '../../../lib/infrastructure';
 
 registerComponent(ChatListItem)
 
@@ -29,7 +28,7 @@ type Message = {
 interface ChatListProps {
   selectedId: number
   selectChat: (event: Event) => void, // eslint-disable-line no-unused-vars
-  chat?: () => ChatItem[],
+  chats?: () => ChatItem[],
   avatarUrl: (chat: ChatItem) => string | URL // eslint-disable-line no-unused-vars
 }
 
@@ -39,11 +38,11 @@ const ChatList = class extends Block<ChatListProps> {
     super({
       selectedId: props.selectedId,
       selectChat: props.selectChat,
-      chats: () => window.store.getState().chats,
+      chats: props.chats,
       avatarUrl: (c) => c.avatar
         ? `${process.env.API_ENDPOINT}/resources/${encodeURI(c.avatar)}`  // eslint-disable-line no-undef
         : new URL('../../../assets/images/profile/avatar.svg', import.meta.url)
-    } as ChatListProps);
+    });
   }
   protected render(): string {
     //language=hbs
@@ -67,4 +66,3 @@ const ChatList = class extends Block<ChatListProps> {
   }
 }
 export { ChatList }
-export default withStore(ChatList)
