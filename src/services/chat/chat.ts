@@ -1,15 +1,12 @@
 import { Dispatch } from '../../core';
 import { ChatApi } from '../../lib/api/chat/ChatApi';
+import { Action } from '../../core/Store'
 
 type CreateChatPayload = {
   title: string
 }
 
-export const create = async (
-  dispatch: Dispatch<AppState>, // eslint-disable-line no-undef
-  state: AppState, // eslint-disable-line no-undef
-  action: CreateChatPayload,
-) => {
+export const create: Action<AppState, CreateChatPayload> = async (dispatch, state, action) => {// eslint-disable-line no-undef
   dispatch({ isLoading: true })
   const client = new ChatApi
   try {
@@ -21,7 +18,7 @@ export const create = async (
   dispatch({ isLoading: false })
 }
 
-export const getChats = async (dispatch: Dispatch<AppState>) => { // eslint-disable-line no-undef
+export const getChats: Pick<Action<AppState, null>, 'dispatch'> = async (dispatch: Dispatch<AppState>) => { // eslint-disable-line no-undef
   dispatch({ isLoading: true })
   const client = new ChatApi()
   try {
@@ -38,11 +35,7 @@ type ChatterPayload = {
   chatId: number
 }
 
-export const addChatter = async (
-  dispatch: Dispatch<AppState>, // eslint-disable-line no-undef
-  state: AppState, // eslint-disable-line no-undef
-  action: ChatterPayload,
-) => {
+export const addChatter: Action<AppState, ChatterPayload> = async (dispatch, state, action) => {
   dispatch({ isLoading: true })
   let client = new ChatApi()
   try {
@@ -56,11 +49,7 @@ export const addChatter = async (
   dispatch({ isLoading: false })
 }
 
-export const getUsers = async (
-  dispatch: Dispatch<AppState>, // eslint-disable-line no-undef
-  state: AppState, // eslint-disable-line no-undef
-  action: number,
-) => {
+export const getUsers: Action<AppState, number> = async (dispatch, state, action) => {
   dispatch({ isLoading: true })
   const client = new ChatApi()
   try {
@@ -72,11 +61,7 @@ export const getUsers = async (
   dispatch({ isLoading: false })
 }
 
-export const deleteChatter = async (
-  dispatch: Dispatch<AppState>, // eslint-disable-line no-undef
-  state: AppState, // eslint-disable-line no-undef
-  action: ChatterPayload,
-) => {
+export const deleteChatter: Action<AppState, ChatterPayload> = async (dispatch, state, action) => {
   dispatch({ isLoading: true })
   let client = new ChatApi()
   try {
@@ -90,33 +75,12 @@ export const deleteChatter = async (
   dispatch({ isLoading: false })
 }
 
-export const getToken = async (
-  dispatch: Dispatch<AppState>, // eslint-disable-line no-undef
-  state: AppState, // eslint-disable-line no-undef
-  action: number,
-) => {
-  dispatch({ isLoading: true })
-  dispatch({ token: null })
-  const client = new ChatApi()
-  try {
-    const response = await client.getToken(action)
-    dispatch({ token: response.token })
-  } catch (e) {
-    console.log(e)
-  }
-  dispatch({ isLoading: false })
-}
-
 type chatRoomPayload = {
   userId: number,
   chatId: number
 }
 
-export const chatRoom = async (
-  dispatch: Dispatch<AppState>, // eslint-disable-line no-undef
-  state: AppState, // eslint-disable-line no-undef
-  { userId, chatId }: chatRoomPayload
-) => {
+export const chatRoom: Action<AppState, chatRoomPayload> = async (dispatch, state, { userId, chatId }) => {
   dispatch({ isLoading: true })
   dispatch({ token: null })
   let client = new ChatApi()
@@ -134,7 +98,6 @@ export const chatRoom = async (
     const token = response.token
     dispatch({ token })
     const baseUrl = process.env.WS_ENDPOINT // eslint-disable-line no-undef
-    console.log(baseUrl)
     const socket = new WebSocket(`wss://${baseUrl}/chats/${userId}/${chatId}/${token}`);
     const intervalId = setInterval(() => {
       socket.send(JSON.stringify({
@@ -143,17 +106,27 @@ export const chatRoom = async (
     }, 30000)
     dispatch({ intervalId, socket })
 
+    socket.addEventListener('open', () => { // eslint-disable-line no-unused-vars
+      console.log('Connection opened')
+      socket.send(JSON.stringify({
+        content: 0,
+        type: 'get old'
+      }))
+    })
+
     socket.addEventListener('message', event => {
       console.log('Получены данные', event.data)
-      const message = JSON.parse(event.data)
-      const type = message.type
-      if (type === 'message') {
-        state.messages.push(message)
-        dispatch({ messages: state.messages })
-      }
-      if (type === 'get old') {
-        state.messages.unshift(message)
-        dispatch({ messages: state.messages })
+      const messages = JSON.parse(event.data)
+      console.log(Array.isArray(messages))
+      if (Array.isArray(messages)) {
+        messages.concat(state.messages)
+        dispatch({ messages: messages })
+      } else {
+        const type = messages.type
+        if (type === 'message') {
+          state.messages.push(messages)
+          dispatch({ messages: state.messages })
+        }
       }
     });
 
@@ -175,15 +148,28 @@ export const chatRoom = async (
   dispatch({ isLoading: false })
 }
 
-export const sendMessage = async (
-  dispatch: Dispatch<AppState>, // eslint-disable-line no-undef
-  state: AppState, // eslint-disable-line no-undef
-  action: string
-) => {
+export const sendMessage: Action<AppState, string> = async (dispatch, state, action) => {
   dispatch({ isLoading: true })
   state.socket.send(JSON.stringify({
     content: action,
     type: 'message'
   }))
+  dispatch({ isLoading: false })
+}
+
+export const deleteChat: Action<AppState, number> = async (dispatch, state, action) => {
+  dispatch({ isLoading: true })
+  const client = new ChatApi()
+  try {
+    await client.deleteChat({
+      chatId: action
+    })
+    const chats = state.chats.filter(c => {
+      return c.id != action
+    })
+    dispatch({ chats })
+  } catch (e) {
+    console.log(e)
+  }
   dispatch({ isLoading: false })
 }
