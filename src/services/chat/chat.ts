@@ -8,7 +8,7 @@ type CreateChatPayload = {
 }
 
 export const create: Action<AppState, CreateChatPayload> = async (dispatch, state, action) => {// eslint-disable-line no-undef
-  dispatch({ isLoading: true })
+  // dispatch({ isLoading: true })
   const client = new ChatApi
   try {
     await client.create(action)
@@ -16,11 +16,11 @@ export const create: Action<AppState, CreateChatPayload> = async (dispatch, stat
   } catch (e) {
     console.log(e)
   }
-  dispatch({ isLoading: false })
+  // dispatch({ isLoading: false })
 }
 
 export const getChats: Pick<Action<AppState, null>, 'dispatch'> = async (dispatch: Dispatch<AppState>) => { // eslint-disable-line no-undef
-  dispatch({ isLoading: true })
+  // dispatch({ isLoading: true })
   const client = new ChatApi()
   try {
     const chats = await client.getChats()
@@ -28,7 +28,7 @@ export const getChats: Pick<Action<AppState, null>, 'dispatch'> = async (dispatc
   } catch (e) {
     console.log(e)
   }
-  dispatch({ isLoading: false })
+  // dispatch({ isLoading: false })
 }
 
 type ChatterPayload = {
@@ -37,7 +37,7 @@ type ChatterPayload = {
 }
 
 export const addChatter: Action<AppState, ChatterPayload> = async (dispatch, state, action) => {
-  dispatch({ isLoading: true })
+  // dispatch({ isLoading: true })
   let client = new ChatApi()
   try {
     await client.addChatter(action)
@@ -47,11 +47,11 @@ export const addChatter: Action<AppState, ChatterPayload> = async (dispatch, sta
   } catch (e) {
     console.log(e)
   }
-  dispatch({ isLoading: false })
+  // dispatch({ isLoading: false })
 }
 
 export const getUsers: Action<AppState, number> = async (dispatch, state, action) => {
-  dispatch({ isLoading: true })
+  // dispatch({ isLoading: true })
   const client = new ChatApi()
   try {
     const users = await client.getUsers(action)
@@ -59,11 +59,11 @@ export const getUsers: Action<AppState, number> = async (dispatch, state, action
   } catch (e) {
     console.log(e)
   }
-  dispatch({ isLoading: false })
+  // dispatch({ isLoading: false })
 }
 
 export const deleteChatter: Action<AppState, ChatterPayload> = async (dispatch, state, action) => {
-  dispatch({ isLoading: true })
+  // dispatch({ isLoading: true })
   let client = new ChatApi()
   try {
     await client.deleteChatter(action)
@@ -73,7 +73,7 @@ export const deleteChatter: Action<AppState, ChatterPayload> = async (dispatch, 
   } catch (e) {
     console.log(e)
   }
-  dispatch({ isLoading: false })
+  // dispatch({ isLoading: false })
 }
 
 type chatRoomPayload = {
@@ -82,19 +82,17 @@ type chatRoomPayload = {
 }
 
 export const chatRoom: Action<AppState, chatRoomPayload> = async (dispatch, state, { userId, chatId }) => {
-  dispatch({ isLoading: true })
-  dispatch({ token: null })
+  // dispatch({ isLoading: true })
+  // dispatch({ token: null })
   let client = new ChatApi()
   try {
 
     if (state.intervalId) {
       clearInterval(state.intervalId)
-      dispatch({ intervalId: null })
-    }
-    if (state.socket) {
       state.socket.close()
-      dispatch({ socket: null })
+      dispatch({ intervalId: null, socket: null })
     }
+
     const response = await client.getToken(chatId)
     const token = response.token
     dispatch({ token })
@@ -114,21 +112,24 @@ export const chatRoom: Action<AppState, chatRoomPayload> = async (dispatch, stat
         type: 'get old'
       }))
     })
-
     socket.addEventListener('message', event => {
-      console.log('Получены данные', event.data)
       const messages = JSON.parse(event.data)
-      console.log(Array.isArray(messages))
-      if (Array.isArray(messages)) {
-        messages.concat(state.messages)
-        dispatch({ messages: messages })
+      if (Array.isArray(messages) && messages.length) {
+        const id = messages[messages.length - 1].id
+        dispatch({ firstMessage: id, messages: [...messages.reverse(), ...window.store.getState().messages] })
+        socket.send(JSON.stringify({
+          content: id,
+          type: 'get old'
+        }))
       } else {
         const type = messages.type
         if (type === 'message') {
           state.messages.push(messages)
-          dispatch({ messages: state.messages })
+          dispatch({ messages: [...window.store.getState().messages, messages] })
         }
       }
+      const d = document.getElementById('scroll-here')
+      d.scrollIntoView()
     });
 
     socket.addEventListener('error', event => {
@@ -146,16 +147,16 @@ export const chatRoom: Action<AppState, chatRoomPayload> = async (dispatch, stat
   } catch (e) {
     console.log(e)
   }
-  dispatch({ isLoading: false })
+  // dispatch({ isLoading: false })
 }
 
 export const sendMessage: Action<AppState, string> = async (dispatch, state, action) => {
-  dispatch({ isLoading: true })
+  // dispatch({ isLoading: true })
   state.socket.send(JSON.stringify({
     content: action,
     type: 'message'
   }))
-  dispatch({ isLoading: false })
+  // dispatch({ isLoading: false })
 }
 
 export const deleteChat: Action<AppState, number> = async (dispatch, state, action) => {

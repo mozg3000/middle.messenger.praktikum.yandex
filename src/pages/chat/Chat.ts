@@ -145,6 +145,7 @@ const Chat = class extends Block<ChatProps> {
                   </div>`
                 }
               )}
+              <div id="scroll-here"></div>
             </div>
             <div class="messages-box-send flex f-between">
               <form action="/" name="sendMessageForm" class="flex w-100 f-between">

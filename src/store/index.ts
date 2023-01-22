@@ -12,5 +12,6 @@ export const defaultState: AppState = { // eslint-disable-line no-undef
   messages: [],
   token: null,
   intervalId: null,
-  socket:  null
+  socket:  null,
+  firstMessage: 0
 };

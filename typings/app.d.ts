@@ -19,6 +19,7 @@ declare global {
     token: string | null,
     intervalId: number | null
     socket: WebSocket | null
+    firstMessage: number
   };
 
   export type User = {

@@ -18,14 +18,14 @@ type RegisterPayload = {
 }
 
 export const login: Action<AppState, LoginPayload> = async (dispatch, state, action) => {
-  dispatch({ isLoading: true, loginFormError: null })
+  // dispatch({ isLoading: true, loginFormError: null })
   let client = new AuthApi()
   try {
     await client.login(action)
     client = new AuthApi()
     const userInfo = await client.userInfo()
     dispatch({ user: userInfo } as Partial<AppState>) // eslint-disable-line no-undef
-    dispatch({ isLoading: false })
+    // dispatch({ isLoading: false })
     window.router.go('/chats')
   } catch (e) {
     console.log(e)
@@ -34,13 +34,13 @@ export const login: Action<AppState, LoginPayload> = async (dispatch, state, act
       dispatch({ isLoading: false })
       window.router.go('/chats')
     }
-    dispatch({ isLoading: false, loginFormError: e.response.reason })
+    // dispatch({ isLoading: false, loginFormError: e.response.reason })
     // dispatch(logout)
   }
 }
 
 export const logout = async (dispatch: Dispatch<AppState>) => { // eslint-disable-line no-undef
-  dispatch({ isLoading: true })
+  // dispatch({ isLoading: true })
   const client = new AuthApi()
   await client.logout();
   dispatch({ isLoading: false, user: null })
@@ -48,7 +48,7 @@ export const logout = async (dispatch: Dispatch<AppState>) => { // eslint-disabl
 }
 
 export const register: Action<AppState, RegisterPayload> = async (dispatch, state, action) => {
-  dispatch({ isLoading: true, registerFormError: null })
+  // dispatch({ isLoading: true, registerFormError: null })
   let client = new AuthApi()
   try {
     await client.register(action)
@@ -59,6 +59,6 @@ export const register: Action<AppState, RegisterPayload> = async (dispatch, stat
     window.router.go('/chats')
   } catch (e) {
     console.log(e)
-    dispatch({ isLoading: false, registerFormError: e.response.reason })
+    // dispatch({ isLoading: false, registerFormError: e.response.reason })
   }
 }
