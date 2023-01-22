@@ -43,6 +43,7 @@ const Chat = class extends Block<ChatProps> {
       users: () => props.store.getState().users,
       user: () => props.store.getState().user,
       messages: () => props.store.getState().messages,
+      chats: () => props.store.getState().chats,
       handleSelectChat: (event: Event) => {
         const newSelectedId = event.currentTarget.dataset.id
         if (event.target.name === 'deleteChat') {
@@ -123,6 +124,7 @@ const Chat = class extends Block<ChatProps> {
               ChatList
                 selectedId=selectedId
                 selectChat=handleSelectChat
+                chats=chats
             }}}
           </div>
         </div>
