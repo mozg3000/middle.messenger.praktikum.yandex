@@ -1,14 +1,14 @@
 import EventBus from './EventBus';
 /* eslint-disable */
 export type Dispatch<State> = (
-  nextStateOrAction: Partial<State> | Action<State>,
+  nextStateOrAction: Partial<State> | Action<State, any>,
   payload?: any,
 ) => void;
 
-export type Action<State> = (
+export type Action<State, T> = (
   dispatch: Dispatch<State>,
   state: State,
-  payload: any,
+  payload: T,
 ) => void;
 /* eslint-disable */
 export class Store<State extends Record<string, any>> extends EventBus {
@@ -33,7 +33,7 @@ export class Store<State extends Record<string, any>> extends EventBus {
     this.emit('changed', prevState, nextState);
   }
 
-  dispatch(nextStateOrAction: Partial<State> | Action<State>, payload?: any) {
+  dispatch(nextStateOrAction: Partial<State> | Action<State, any>, payload?: any) {
     if (typeof nextStateOrAction === 'function') {
       nextStateOrAction(this.dispatch.bind(this), this.state, payload);
     } else {

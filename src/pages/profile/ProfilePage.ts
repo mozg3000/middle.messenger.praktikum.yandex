@@ -34,6 +34,7 @@ const ProfilePage = class extends Block<ProfilePageProps> {
   private _validator: Validator;
   constructor(props) {
     super({ // eslint-disable-next-line no-undef
+      ...props,
       avatarUrl: () => props.store.getState().user && props.store.getState().user.avatar
         ? `${process.env.API_ENDPOINT}/resources/${encodeURI(props.store.getState().user.avatar)}`  // eslint-disable-line no-undef
         : new URL('../../assets/images/profile/avatar.svg', import.meta.url),
@@ -85,6 +86,15 @@ const ProfilePage = class extends Block<ProfilePageProps> {
         const changeAvatarFormData: FormData = new FormData()
         changeAvatarFormData.append('avatar', document.forms.changeAvatar.elements[0].files[0])
         props.store.dispatch(changeAvatar, changeAvatarFormData)
+      },
+      getName() {
+        let secondName = ''
+        let firstName = ''
+        if (props.store.getState().user) {
+          secondName = props.store.getState().user.second_name
+          firstName = props.store.getState().user.first_name
+        }
+        return secondName + ' ' + firstName
       }
     })
     this._validator = new Validator(ruleSet)
@@ -135,7 +145,7 @@ const ProfilePage = class extends Block<ProfilePageProps> {
             className="avatar-block-image"
         }}}
         <div class="profile-name">
-          Иван
+          <h3>${this.props.getName()}</h3>
         </div>
         <div class="profile-name">
           <form action="/" name="changeAvatar">

@@ -116,6 +116,10 @@
   font-size: 9px;
 }
 
+.btn-delete-chat {
+  padding: 0!important;
+}
+
 .send-block-input {
   width: 100%;
   background: #efefef;

@@ -29,15 +29,20 @@ type Message = {
 interface ChatListProps {
   selectedId: number
   selectChat: (event: Event) => void, // eslint-disable-line no-unused-vars
-  chat?: () => ChatItem[]
+  chat?: () => ChatItem[],
+  avatarUrl: (chat: ChatItem) => string | URL // eslint-disable-line no-unused-vars
 }
 
 const ChatList = class extends Block<ChatListProps> {
   static componentName = 'ChatList'
   constructor(props: ChatListProps) {
     super({
-      ...props,
-      chats: () => props.store.getState().chats
+      selectedId: props.selectedId,
+      selectChat: props.selectChat,
+      chats: () => props.store.getState().chats,
+      avatarUrl: (c) => c.avatar
+        ? `${process.env.API_ENDPOINT}/resources/${encodeURI(c.avatar)}`  // eslint-disable-line no-undef
+        : new URL('../../../assets/images/profile/avatar.svg', import.meta.url)
     } as ChatListProps);
   }
   protected render(): string {
@@ -55,6 +60,7 @@ const ChatList = class extends Block<ChatListProps> {
               active=${(c.id == this.props.selectedId)}
               chatId="${c.id}"
               select=selectChat
+              avatarUrl="${this.props.avatarUrl(c)}"
           }}}`
         }).join(' ')}
       </article>`

@@ -10,7 +10,7 @@ const Avatar = class extends Block<AvatarProps> {
   static componentName = 'Avatar'
 
   protected render(): string {
-    const url = isFunction(this.props.url) ? this.props.url() : ''
+    const url = isFunction(this.props.url) ? this.props.url() : this.props.url
     //language=hbs
     return `
       <div class="avatar-block">

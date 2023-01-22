@@ -1,7 +1,15 @@
 import { Block, registerComponent } from '../../core';
 import ChatList from '../../modules/chat/components/ChatList'; // eslint-disable-line
 import { Link, Input, Button } from '../../components/controls';
-import {chatRoom, create, deleteChatter, getChats, getUsers, sendMessage} from '../../services/chat/chat';
+import {
+  chatRoom,
+  create,
+  deleteChat,
+  deleteChatter,
+  getChats,
+  getUsers,
+  sendMessage
+} from '../../services/chat/chat';
 import { withStore } from '../../lib/infrastructure';
 import { addChatter } from '../../services/chat/chat'
 
@@ -37,6 +45,11 @@ const Chat = class extends Block<ChatProps> {
       messages: () => props.store.getState().messages,
       handleSelectChat: (event: Event) => {
         const newSelectedId = event.currentTarget.dataset.id
+        if (event.target.name === 'deleteChat') {
+          event.preventDefault()
+          this.props.store.dispatch(deleteChat, newSelectedId)
+          return
+        }
         if (newSelectedId === this.props.selectedId) {
           return
         }

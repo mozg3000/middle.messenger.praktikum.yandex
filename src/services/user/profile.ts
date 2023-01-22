@@ -1,5 +1,6 @@
-import type { Dispatch } from '../../core/';
 import { UserApi } from '../../lib/api/user/UserApi';
+import AppState from '../../../typings/app';
+import { Action } from '../../core/Store';
 
 type ProfilePayload = {
   first_name: string,
@@ -10,11 +11,7 @@ type ProfilePayload = {
   phone: string
 }
 
-export const updateProfile = async (
-  dispatch: Dispatch<AppState>, // eslint-disable-line no-undef
-  state: AppState, // eslint-disable-line no-undef
-  action: ProfilePayload
-) => {
+export const updateProfile: Action<AppState, ProfilePayload> = async (dispatch, state, action) => {
   dispatch({ isLoading: true, profileFormError: null })
   const client = new UserApi()
   try {
@@ -27,11 +24,7 @@ export const updateProfile = async (
   }
 }
 
-export const changeAvatar = async (
-  dispatch: Dispatch<AppState>, // eslint-disable-line no-undef
-  state: AppState, // eslint-disable-line no-undef
-  action: FormData
-) => {
+export const changeAvatar: Action<AppState, FormData> = async (dispatch, state, action) => {
   dispatch({ isLoading: true, profileFormError: null })
   const client = new UserApi()
   try {

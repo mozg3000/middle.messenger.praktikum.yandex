@@ -41,8 +41,12 @@ export function initRouter(router: CoreRouter, store: Store<AppState>) { // esli
       const currentScreen = Boolean(store.getState().screen);
 
       if (isAuthorized || !route.shouldAuthorized) {
+        if (route.path === '/') {
+          router.go('/chats')
+          return
+        }
         store.dispatch({ screen: route.block });
-        return;
+        return
       }
 
       if (!currentScreen) {

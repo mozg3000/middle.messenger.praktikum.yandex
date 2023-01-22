@@ -45,6 +45,14 @@ const ChatListItem = class extends Block<ChatItemProps> {
       </div>
       <div class="notification-block flex d-column f-between">
         <div>
+          {{{
+            Button
+              className="btn btn-delete-chat"
+              title="X"
+              name="deleteChat"
+          }}}
+        </div>
+        <div>
           <p>{{{timestamp}}}</p>
         </div>
         <div>

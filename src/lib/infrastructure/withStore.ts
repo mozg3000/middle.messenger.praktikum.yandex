@@ -13,16 +13,19 @@ export function withStore<P extends WithStateProps>(WrappedBlock: BlockClass<P>)
 
     __onChangeStoreCallback = () => {
       // @ts-expect-error this is not typed
+      console.log('__onChangeStoreCallback', WrappedBlock.componentName)
       this.setProps({ ...this.props, store: window.store });
     }
 
     componentDidMount(props: P) {
       super.componentDidMount(props);
+      console.log('componentDidMount', WrappedBlock.componentName)
       window.store.on('changed', this.__onChangeStoreCallback);
     }
 
     componentWillUnmount() {
       super.componentWillUnmount();
+      console.log('componentWillUnmount')
       window.store.off('changed', this.__onChangeStoreCallback);
     }
 

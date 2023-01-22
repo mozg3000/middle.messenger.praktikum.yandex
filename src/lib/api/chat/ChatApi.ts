@@ -9,6 +9,10 @@ type ChatterData = {
   chatId: number
 }
 
+type deleteChatData = {
+  chatId: number
+}
+
 class ChatApi extends BaseApi {
   create(data: CreateChatData) {
     return this.client.request(
@@ -51,6 +55,16 @@ class ChatApi extends BaseApi {
       `/chats/token/${id}`,
       {
         method: 'POST'
+      }
+    )
+  }
+
+  deleteChat(data: deleteChatData) {
+    return this.client.request(
+      '/chats',
+      {
+       'method': 'DELETE',
+        data
       }
     )
   }

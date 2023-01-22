@@ -1,16 +1,13 @@
-import type { Dispatch } from '../../core/';
 import { UserApi } from '../../lib/api/user/UserApi';
+import { Action } from '../../core/Store';
+import AppState from '../../../typings/app';
 
 type UserChangePasswordPayload = {
   oldPassword: string,
   newPassword: string
 }
 
-export const changeUserPassword = async (
-  dispatch: Dispatch<AppState>, // eslint-disable-line no-undef
-  state: AppState, // eslint-disable-line no-undef
-  action: UserChangePasswordPayload
-) => {
+export const changeUserPassword: Action<AppState, UserChangePasswordPayload> = async (dispatch, state, action) => {
   dispatch({ isLoading: true, changePasswordFormError: null })
   const client = new UserApi()
   try {

@@ -1,5 +1,7 @@
 import type { Dispatch } from '../../core/';
 import { AuthApi } from '../../lib/api/auth/AuthApi';
+import { Action } from '../../core/Store';
+import AppState from '../../../typings/app';
 
 type LoginPayload = {
   login: string;
@@ -15,11 +17,7 @@ type RegisterPayload = {
   phone: string
 }
 
-export const login = async (
-  dispatch: Dispatch<AppState>, // eslint-disable-line no-undef
-  state: AppState, // eslint-disable-line no-undef
-  action: LoginPayload,
-) => {
+export const login: Action<AppState, LoginPayload> = async (dispatch, state, action) => {
   dispatch({ isLoading: true, loginFormError: null })
   let client = new AuthApi()
   try {
@@ -49,11 +47,7 @@ export const logout = async (dispatch: Dispatch<AppState>) => { // eslint-disabl
   window.router.go('/')
 }
 
-export const register = async (
-  dispatch: Dispatch<AppState>, // eslint-disable-line no-undef
-  state: AppState, // eslint-disable-line no-undef
-  action: RegisterPayload
-) => {
+export const register: Action<AppState, RegisterPayload> = async (dispatch, state, action) => {
   dispatch({ isLoading: true, registerFormError: null })
   let client = new AuthApi()
   try {

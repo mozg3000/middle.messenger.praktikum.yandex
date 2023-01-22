@@ -25,6 +25,7 @@ const Button = class extends Block<ButtonProps> {
         type="{{type}}"
         class="{{className}}"
         data-id="{{id}}"
+        name="{{name}}"
     >
       {{title}}
     </button>`
