@@ -1,5 +1,5 @@
 import { Block, registerComponent } from '../../core';
-import ChatList from '../../modules/chat/components/ChatList'; // eslint-disable-line
+import {ChatList} from '../../modules/chat/components/ChatList'; // eslint-disable-line
 import { Link, Input, Button } from '../../components/controls';
 import {
   chatRoom,

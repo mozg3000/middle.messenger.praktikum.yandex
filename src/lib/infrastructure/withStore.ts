@@ -25,7 +25,7 @@ export function withStore<P extends WithStateProps>(WrappedBlock: BlockClass<P>)
 
     componentWillUnmount() {
       super.componentWillUnmount();
-      console.log('componentWillUnmount')
+      console.log('componentWillUnmount', WrappedBlock.componentName)
       window.store.off('changed', this.__onChangeStoreCallback);
     }
 

@@ -39,7 +39,7 @@ const ChatList = class extends Block<ChatListProps> {
     super({
       selectedId: props.selectedId,
       selectChat: props.selectChat,
-      chats: () => props.store.getState().chats,
+      chats: () => window.store.getState().chats,
       avatarUrl: (c) => c.avatar
         ? `${process.env.API_ENDPOINT}/resources/${encodeURI(c.avatar)}`  // eslint-disable-line no-undef
         : new URL('../../../assets/images/profile/avatar.svg', import.meta.url)
