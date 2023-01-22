@@ -87,7 +87,7 @@ export const chatRoom: Action<AppState, chatRoomPayload> = async (dispatch, stat
   let client = new ChatApi()
   try {
 
-    if (state.intervalId) {
+    if (window.store.getState().intervalId) {
       clearInterval(window.store.getState().intervalId)
       state.socket.close()
       dispatch({ intervalId: null, socket: null, messages: [] })
