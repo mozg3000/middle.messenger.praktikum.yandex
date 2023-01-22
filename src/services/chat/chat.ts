@@ -1,6 +1,7 @@
 import { Dispatch } from '../../core';
 import { ChatApi } from '../../lib/api/chat/ChatApi';
 import { Action } from '../../core/Store'
+import AppState from '../../../typings/app';
 
 type CreateChatPayload = {
   title: string
