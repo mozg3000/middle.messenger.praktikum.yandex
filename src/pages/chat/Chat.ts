@@ -132,7 +132,11 @@ const Chat = class extends Block<ChatProps> {
               ${this.props.messages().map(
                 m => {
                   let className = 'message'
-                  let author = (this.props.users()).filter( u => u.id === m.user_id)[0].login
+                  let author = ''
+                  const chat = (this.props.users()).filter( u => u.id === m.user_id)[0]
+                  if (chat) {
+                    author = chat.login
+                  }
                   if (m.user_id === this.props.user().id) {
                     className += ' message-own'
                     author = 'You'

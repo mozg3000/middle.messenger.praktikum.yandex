@@ -88,11 +88,10 @@ export const chatRoom: Action<AppState, chatRoomPayload> = async (dispatch, stat
   try {
 
     if (state.intervalId) {
-      clearInterval(state.intervalId)
+      clearInterval(window.store.getState().intervalId)
       state.socket.close()
-      dispatch({ intervalId: null, socket: null })
+      dispatch({ intervalId: null, socket: null, messages: [] })
     }
-
     const response = await client.getToken(chatId)
     const token = response.token
     dispatch({ token })
