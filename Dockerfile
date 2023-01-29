@@ -1,4 +1,9 @@
-FROM node:19-alpine3.17
-RUN mkdir -p /var/www/msgya
-WORKDIR /var/www/msgya
+FROM node:16-alpine
+
+COPY ./ /app
+
+WORKDIR /app
+
 EXPOSE 3000
+
+CMD node server.js
