@@ -1,5 +1,7 @@
 const path = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -25,17 +27,13 @@ module.exports = {
           extensions: ['.ts', '.js', '.json'],
           enforceExtension: false,
           fallback: {
-            fs: path.join(__dirname, 'node_modules') // @see https://github.com/handlebars-lang/handlebars.js/issues/953#issuecomment-94931306
+            fs: path.join(__dirname, 'node_modules')
           },
           alias: {
-            'handlebars': 'handlebars/runtime.js' // @see https://github.com/handlebars-lang/handlebars.js/issues/953#issuecomment-94931306
+            'handlebars': 'handlebars/dist/handlebars.min.js'
           }
         },
         exclude: /(node_modules)/
-      },
-      {
-        test: /\.handlebars$/,
-        loader: "handlebars-loader"
       },
       {
         test: /\.css$/i,
@@ -63,6 +61,13 @@ module.exports = {
   plugins: [
     new ESLintPlugin({
 
+    }),
+    new Dotenv(),
+    new HtmlWebpackPlugin({
+      template: 'src/index.html'
     })
-  ]
+  ],
+  devServer: {
+    historyApiFallback: true,
+  },
 };

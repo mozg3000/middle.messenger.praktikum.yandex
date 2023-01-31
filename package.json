@@ -9,19 +9,21 @@
   "license": "",
   "author": "Mozg3000",
   "scripts": {
-    "build": "parcel build src/index.html --no-cache --no-source-maps && cp _redirects ./dist",
-    "dev": "parcel src/index.html --no-cache",
+    "build": "node ./node_modules/.bin/webpack",
+    "dev": "node ./node_modules/.bin/webpack-dev-server",
     "start": "npm run build && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.19.1",
     "@types/node": "18.11.18",
-    "@typescript-eslint/eslint-plugin": "*",
+    "@typescript-eslint/eslint-plugin": "5.50.0",
     "css-loader": "6.7.3",
+    "dotenv": "16.0.3",
     "eslint": "8.33.0",
     "eslint-webpack-plugin": "3.2.0",
     "handlebars-loader": "1.7.3",
+    "html-webpack-plugin": "5.5.0",
     "postcss": "8.4.20",
     "postcss-import": "15.1.0",
     "postcss-loader": "7.0.2",
@@ -39,10 +41,12 @@
     "webpack-merge": "5.8.0"
   },
   "dependencies": {
+    "dotenv-webpack": "8.0.1",
     "express": "4.18.*",
     "handlebars": "4.7.7",
     "nanoid": "4.0.0",
     "normalize.css": "8.0.1",
-    "postcss-preset-env": "8.0.1"
+    "postcss-preset-env": "8.0.1",
+    "webpack-handlebars-precompiler": "1.1.0"
   }
 }

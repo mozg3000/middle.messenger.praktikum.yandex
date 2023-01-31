@@ -27,20 +27,20 @@ const routes = [
     block: Screens.Chats,
     shouldAuthorized: true,
   },
-  // {
-  //   path: '*',
-  //   block: Screens.Login,
-  //   shouldAuthorized: false,
-  // },
+  {
+    path: '*',
+    block: Screens.NotFound,
+    shouldAuthorized: false,
+  },
 ];
 
 export function initRouter(router: CoreRouter, store: Store<AppState>) { // eslint-disable-line no-undef
   routes.forEach(route => {
     router.use(route.path, () => {
-      const isAuthorized = Boolean(store.getState().user);
-      const currentScreen = Boolean(store.getState().screen);
+      const isAuthorized = Boolean(window.store.getState().user);
+      const currentScreen = Boolean(window.store.getState().screen);
 
-      if (isAuthorized || !route.shouldAuthorized) {
+      if (isAuthorized) {
         if (route.path === '/') {
           router.go('/chats')
           return
@@ -48,9 +48,13 @@ export function initRouter(router: CoreRouter, store: Store<AppState>) { // esli
         store.dispatch({ screen: route.block });
         return
       }
-
       if (!currentScreen) {
+        window.history.pushState({}, '', '/');
         store.dispatch({ screen: Screens.Login });
+        return
+      }
+      if (!route.shouldAuthorized) {
+        store.dispatch({ screen: route.block });
       }
     });
   });
