@@ -1,13 +1,13 @@
 {
-  "name": "web_messenger_bro",
-  "version": "0.0.1",
+  "name": "msgya",
+  "version": "4.0.0",
   "description": "",
   "keywords": [
     "messenger",
     "communication"
   ],
   "license": "",
-  "author": "",
+  "author": "Mozg3000",
   "scripts": {
     "build": "parcel build src/index.html --no-cache --no-source-maps && cp _redirects ./dist",
     "dev": "parcel src/index.html --no-cache",
@@ -15,28 +15,34 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "7.19.1",
     "@types/node": "18.11.18",
-    "@typescript-eslint/eslint-plugin": "5.49.0",
-    "@typescript-eslint/parser": "5.49.0",
-    "eslint": "6.8.0",
-    "parcel": "2.8.3",
-    "parcel-bundler": "1.12.5",
-    "parcel-plugin-handlebars-precompile": "1.0.2",
+    "@typescript-eslint/eslint-plugin": "*",
+    "css-loader": "6.7.3",
+    "eslint": "8.33.0",
+    "eslint-webpack-plugin": "3.2.0",
+    "handlebars-loader": "1.7.3",
     "postcss": "8.4.20",
     "postcss-import": "15.1.0",
+    "postcss-loader": "7.0.2",
     "postcss-simple-vars": "7.0.1",
+    "style-loader": "3.3.1",
     "stylelint": "14.16.1",
     "stylelint-config-standard": "29.0.0",
+    "ts-loader": "9.4.2",
+    "tslint": "6.1.3",
+    "tslint-loader": "3.5.4",
     "typescript": "4.9.4",
     "webpack": "5.75.0",
-    "webpack-cli": "5.0.1"
+    "webpack-cli": "5.0.1",
+    "webpack-dev-server": "4.11.1",
+    "webpack-merge": "5.8.0"
   },
   "dependencies": {
-    "@parcel/resolver-glob": "2.8.2",
-    "@parcel/validator-eslint": "2.8.2",
     "express": "4.18.*",
     "handlebars": "4.7.7",
     "nanoid": "4.0.0",
-    "normalize.css": "8.0.1"
+    "normalize.css": "8.0.1",
+    "postcss-preset-env": "8.0.1"
   }
 }
