@@ -2,6 +2,7 @@ const path = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: 'development',
@@ -65,6 +66,11 @@ module.exports = {
     new Dotenv(),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: __dirname + "/src/assets", to: __dirname + "/dist/assets" },
+      ],
     })
   ],
   devServer: {
