@@ -11,6 +11,9 @@ const config = {
   moduleFileExtensions: ['js', 'ts', 'tsx', 'json'],
   transform: {
     '^.+\\.[jt]s?$': 'ts-jest'
+  },
+  moduleNameMapper: {
+    "\\.(css)$": "identity-obj-proxy"
   }
 };
 
