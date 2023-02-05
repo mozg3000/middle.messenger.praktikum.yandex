@@ -30,15 +30,12 @@ describe('components/Button', () => {
 
   it('should call onClick when user press button', () => {
 
-    // 1 Arrange
     const mock = jest.fn()
 
-    renderButton(mock)
+    const button = renderButton(mock)
 
-    // 2 Act
-    getByRole(document.body, 'button').click()
+    button.click()
 
-    // 3 Assert
     expect(mock).toBeCalled();
   })
 })
