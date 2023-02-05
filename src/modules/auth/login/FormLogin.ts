@@ -3,6 +3,7 @@ import { initProps } from './initProps';
 import { Button, InputGroup, Link } from '../../../components/controls';
 import { Validator } from '../../../lib/validators';
 import { ruleSet } from './LoginRuleSet';
+import { login } from '../../../services/user/auth';
 
 registerComponent(InputGroup)
 registerComponent(Button)
@@ -42,7 +43,7 @@ const FormLogin = class extends Block<FormLoginProps> {
       handleClick: (event: Event) => {
         if (this.validateInputs()) {
           const loginFormData: FormData = new FormData(document.forms.login)
-          console.log(Object.fromEntries(loginFormData))
+          window.store.dispatch(login, Object.fromEntries(loginFormData))
         }
         event.preventDefault()
       },
@@ -131,7 +132,7 @@ const FormLogin = class extends Block<FormLoginProps> {
         {{{
           Link 
             text=registerLinkText
-            url=registerLinkUrl 
+            url="javascript:window.router.go('/register')" 
             className=registerLinkClassName
         }}}
       </div>

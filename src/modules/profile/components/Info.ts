@@ -24,7 +24,7 @@ const Info = class extends Block<InfoProps> {
     //language=hbs
     return `
       <form name="profile" class="info__block flex d-column">
-        ${this.props.profile.map(p => {
+        ${this.props.profile().map(p => {
           return `
             {{{
               InfoItem

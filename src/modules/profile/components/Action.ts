@@ -5,6 +5,8 @@ registerComponent(Link)
 
 interface ActionProps {
   handleEditClick: (event: Event) => void // eslint-disable-line no-unused-vars
+  handleLogout: (event: Event) => void // eslint-disable-line no-unused-vars
+  handleChangePassword: (event: Event) => void // eslint-disable-line no-unused-vars
 }
 
 const Action = class extends Block<ActionProps> {
@@ -24,14 +26,16 @@ const Action = class extends Block<ActionProps> {
         <div class="info-item flex f-between">
           {{{
             Link 
-              url='javascript::void(0)' 
+              url='/' 
               text='Изменить пароль'
+              click=handleChangePassword
           }}}
         </div>
           {{{
             Link
-              url='/' 
+              url='javascript::void(0)' 
               text='Выйти' 
+              click=handleLogout
           }}}
       </div>`
   }

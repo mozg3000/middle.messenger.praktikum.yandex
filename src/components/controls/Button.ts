@@ -21,7 +21,14 @@ const Button = class extends Block<ButtonProps> {
   }
   render(): string {
     //language=hbs
-    return `<button type="{{type}}" class="{{className}}">{{title}}</button>`
+    return `<button 
+        type="{{type}}"
+        class="{{className}}"
+        data-id="{{id}}"
+        name="{{name}}"
+    >
+      {{title}}
+    </button>`
   }
 }
 export { Button, ButtonProps }

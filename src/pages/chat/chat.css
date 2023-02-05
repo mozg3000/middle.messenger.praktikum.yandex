@@ -41,6 +41,11 @@
   padding: 12px;
 }
 
+.btn-send {
+  width: 50px;
+  height: 40px;
+}
+
 .avatar-img {
   width: 47px;
   height: 47px;
@@ -79,6 +84,40 @@
 
 .messages-list {
   flex-grow: 1;
+  overflow-y: auto;
+}
+
+.message {
+  background-color: #808388;
+  padding: 10px 20px;
+  border-radius: 12px;
+  min-height: 60px;
+  max-height: 80px;
+  width: 200px;
+  position: relative;
+}
+
+.message-own {
+  margin-left: 400px;
+  background-color: #3c76ee;
+}
+
+.message-author {
+  position: absolute;
+  right: 20px;
+  color: #d2d7ec;
+  font-size: 9px;
+}
+
+.message-time {
+  position: absolute;
+  left: 20px;
+  color: #d2d7ec;
+  font-size: 9px;
+}
+
+.btn-delete-chat {
+  padding: 0 !important;
 }
 
 .send-block-input {
