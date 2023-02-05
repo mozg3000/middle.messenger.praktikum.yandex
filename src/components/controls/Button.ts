@@ -12,13 +12,11 @@ const Button = class extends Block<ButtonProps> {
   static  componentName = 'Button'
   constructor(props: ButtonProps) {
     super({
-      type: props.type,
-      title: props.title,
+      ...props,
       events: {
-        click: props.onClick
+        click: props.onClick as (event: Event) => void
       }
-    } as ButtonProps);
-    
+    });
   }
   render(): string {
     //language=hbs
