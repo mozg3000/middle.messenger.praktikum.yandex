@@ -41,14 +41,18 @@ const ChatList = class extends Block<ChatListProps> {
       chats: props.chats,
       avatarUrl: (c) => c.avatar
         ? `${process.env.API_ENDPOINT}/resources/${encodeURI(c.avatar)}`  // eslint-disable-line no-undef
-        : new URL('../../../assets/images/profile/avatar.svg', import.meta.url)
+        : '/assets/images/profile/avatar.svg'
     });
   }
   protected render(): string {
     //language=hbs
     return `
       <article class="chat-list-block">
-        ${this.props.chats().map((c) => {
+        (
+          
+        ${
+                //@ts-ignore
+      this.props.chats().map((c) => {
           const lastMessage = c.lastMessage ? '' : 'No message yet'
             return `
           {{{
@@ -62,6 +66,7 @@ const ChatList = class extends Block<ChatListProps> {
               avatarUrl="${this.props.avatarUrl(c)}"
           }}}`
         }).join(' ')}
+        )
       </article>`
   }
 }

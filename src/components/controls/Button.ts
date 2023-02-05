@@ -5,18 +5,19 @@ interface ButtonProps {
   type: string,
   className?: string,
   title: string,
-  events?: { [key: string]: (event?: Event) => void } // eslint-disable-line no-unused-vars
+  events?: { [key: string]: (event: Event) => void } // eslint-disable-line no-unused-vars
 }
 
 const Button = class extends Block<ButtonProps> {
   static  componentName = 'Button'
   constructor(props: ButtonProps) {
     super({
-      ...props,
+      type: props.type,
+      title: props.title,
       events: {
         click: props.onClick
       }
-    });
+    } as ButtonProps);
     
   }
   render(): string {

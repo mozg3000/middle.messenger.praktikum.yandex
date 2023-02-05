@@ -1,4 +1,4 @@
-import { Block, registerComponent } from '../../core';
+import {Block, registerComponent, Store} from '../../core';
 import {ChatList} from '../../modules/chat/components/ChatList'; // eslint-disable-line
 import { Link, Input, Button } from '../../components/controls';
 import {
@@ -29,13 +29,26 @@ interface ChatProps {
   handleAddChatterClick: (event: Event) => void // eslint-disable-line no-unused-vars
   handleDeleteUser: (event: Event) => void // eslint-disable-line no-unused-vars
   handleSendMessage: (event: Event) => void // eslint-disable-line no-unused-vars
+  store: InstanceType<typeof Store>
+}
+
+interface CreateChatType extends HTMLCollectionOf<HTMLFormElement> {
+  createChat: HTMLFormElement
+}
+
+interface AddChatterType extends HTMLCollectionOf<HTMLFormElement> {
+  addChatter: HTMLFormElement
+}
+
+interface SendMessageType extends HTMLCollectionOf<HTMLFormElement> {
+  sendMessageForm: HTMLFormElement
 }
 
 const Chat = class extends Block<ChatProps> {
 
   static componentName = 'Chat'
 
-  constructor(props) { // eslint-disable-line no-unused-vars
+  constructor(props: ChatProps) { // eslint-disable-line no-unused-vars
     super({
       ...props,
       selected: false,
@@ -43,9 +56,12 @@ const Chat = class extends Block<ChatProps> {
       users: () => props.store.getState().users,
       user: () => props.store.getState().user,
       messages: () => props.store.getState().messages,
+      //@ts-ignore
       chats: () => props.store.getState().chats,
       handleSelectChat: (event: Event) => {
+        //@ts-ignore
         const newSelectedId = event.currentTarget.dataset.id
+        //@ts-ignore
         if (event.target.name === 'deleteChat') {
           event.preventDefault()
           this.props.store.dispatch(deleteChat, newSelectedId)
@@ -64,25 +80,27 @@ const Chat = class extends Block<ChatProps> {
       },
       handleCreateClick: (event: Event) => {
         event.preventDefault()
-        const formData = new FormData(document.forms.createChat)
+        const formData = new FormData((document.forms as CreateChatType).createChat)
         this.props.store.dispatch(create, Object.fromEntries(formData))
       },
       handleAddChatterClick: (event: Event) => {
         event.preventDefault()
         this.props.store.dispatch(addChatter, {
-          users: [document.forms.addChatter.elements[0].value],
+          //@ts-ignore
+          users: [(document.forms as AddChatterType).addChatter.title.value],
           chatId: this.props.selectedId
         })
       },
       handleDeleteUser: (event: Event) => {
         this.props.store.dispatch(deleteChatter, {
           chatId: this.props.selectedId,
+          //@ts-ignore
           users: [event.target.dataset.id]
         })
       },
       handleSendMessage: (event: Event) => {
         event.preventDefault()
-        const content = document.forms.sendMessageForm.elements[0].value
+        const content = (document.forms as SendMessageType).sendMessageForm.message.value
         if (content !== '') {
           this.props.store.dispatch(sendMessage, content)
         }
@@ -258,4 +276,5 @@ const Chat = class extends Block<ChatProps> {
 }
 export { Chat }
 
+//@ts-ignore
 export default withStore(Chat)

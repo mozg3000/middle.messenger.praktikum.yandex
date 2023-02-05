@@ -24,6 +24,7 @@ class ChatApi extends BaseApi {
     )
   }
   getChats() {
+    //@ts-ignore
     return this.client.request('/chats')
   }
   addChatter(data: ChatterData) {
@@ -37,6 +38,7 @@ class ChatApi extends BaseApi {
   }
 
   getUsers(id: number) {
+    //@ts-ignore
     return this.client.request(`/chats/${id}/users`)
   }
 

@@ -1,10 +1,12 @@
 import { Rule } from './Rule'
 
+type LengthProps = { 'min': string, 'max': string }
+
 const LengthRule = class extends Rule {
   private _minLength: number;
   private _maxLength: number | undefined;
-  private _messages: { [min: string]: string, [max: string]: string };
-  constructor(minLength: number, _messages: {[min:string]:string, [max:string]:string}, maxLength?: number) {
+  private _messages: LengthProps;
+  constructor(minLength: number, _messages: LengthProps, maxLength?: number) {
     super('length')
     this._messages = _messages;
     this._maxLength = maxLength;

@@ -1,12 +1,15 @@
 import { Block } from '../../core';
 
-interface ErrorMessageProps {
+ interface MessageProps {
   error: boolean,
   message: string
 }
 
-const ErrorMessage = class extends Block<ErrorMessageProps> {
+class ErrorMessage extends Block<MessageProps> {
   static componentName = 'ErrorMessage'
+  constructor(props: MessageProps) {
+    super(props)
+  }
 
   render() {
     //language=hbs
@@ -18,4 +21,4 @@ const ErrorMessage = class extends Block<ErrorMessageProps> {
       </span>`
   }
 }
-export { ErrorMessage, ErrorMessageProps }
+export { ErrorMessage, MessageProps }

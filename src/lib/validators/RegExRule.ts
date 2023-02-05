@@ -1,11 +1,18 @@
 import { Rule } from './Rule'
 
+type MessageProps = {
+  'min': string,
+  'max': string,
+  'contain': string,
+  'notContain': string
+}
+
 const RegExRule = class extends Rule {
 
-  private _messages: { [min: string]: string, [max: string]: string };
-  private _regEx: {[Symbol.match](string: string): (RegExpMatchArray | null)}; // eslint-disable-line no-unused-vars
+  private _messages: MessageProps;
+  private _regEx:  string | RegExp; // eslint-disable-line no-unused-vars
   private _contain: boolean;
-  constructor(regEx: {[Symbol.match](string: string): (RegExpMatchArray | null)}, _messages: {[notContain:string]:string, [contain:string]:string}, contain:boolean = false) {  // eslint-disable-line no-unused-vars
+  constructor(regEx:  string | RegExp, _messages: MessageProps, contain:boolean = false) {  // eslint-disable-line no-unused-vars
     super('regEx')
     this._messages = _messages;
     this._regEx = regEx

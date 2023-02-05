@@ -14,6 +14,10 @@ interface InfoItemProps {
 
 const InfoItem = class extends Block<InfoItemProps> {
   static componentName = 'InfoItem'
+
+  constructor(props: InfoItemProps) {
+    super(props);
+  }
   render(): string {
     //language=hbs
     return `

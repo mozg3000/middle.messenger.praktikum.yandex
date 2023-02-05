@@ -21,7 +21,7 @@ const ChatListItem = class extends Block<ChatItemProps> {
     super({
       ...props,
       events: {
-        click: props.select
+        click: props.select as (event?: Event) => void
       }
     });
   }

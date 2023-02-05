@@ -1,4 +1,5 @@
 import { UserApi } from '../../lib/api/user/UserApi';
+//@ts-ignore
 import AppState from '../../../typings/app';
 import { Action } from '../../core/Store';
 
@@ -11,6 +12,7 @@ type ProfilePayload = {
   phone: string
 }
 
+//@ts-ignore
 export const updateProfile: Action<AppState, ProfilePayload> = async (dispatch, state, action) => {
   // dispatch({ isLoading: true, profileFormError: null })
   const client = new UserApi()
@@ -24,12 +26,13 @@ export const updateProfile: Action<AppState, ProfilePayload> = async (dispatch, 
   }
 }
 
+//@ts-ignore
 export const changeAvatar: Action<AppState, FormData> = async (dispatch, state, action) => {
   // dispatch({ isLoading: true, profileFormError: null })
   const client = new UserApi()
   try {
     const userInfo = await client.changeAvatar(action)
-    dispatch({ user: userInfo })
+    dispatch({ user: userInfo as User })
   } catch (e) {
     console.log(e)
     // dispatch({ isLoading: false, profileFormError: e.response.reason })

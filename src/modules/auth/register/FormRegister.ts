@@ -1,13 +1,18 @@
 import { Block, registerComponent } from '../../../core';
-import { Button, InputGroup, Link } from '../../../components/controls';
+import {Button, InputGroup, Link, MessageProps} from '../../../components/controls';
 import { initProps } from '../register/initProps';
 import { Validator } from '../../../lib/validators';
 import { ruleSet } from './RegisterRuleSet';
 import { register } from '../../../services/user/auth';
+import {BlockProps} from "../../../core/Block";
 
 registerComponent(InputGroup)
 registerComponent(Button)
 registerComponent(Link)
+
+interface FormRegisterType extends HTMLCollectionOf<HTMLFormElement> {
+  register: HTMLFormElement
+}
 
 interface FormRegisterProps {
   btnTitle?: string,
@@ -66,14 +71,14 @@ interface FormRegisterProps {
 
 const FormRegister = class extends Block<FormRegisterProps> {
   static componentName = 'FormRegister'
-  private _validator: Validator
+  private _validator: InstanceType<typeof Validator>
 
   constructor() {
     super({
       ...initProps,
       handleClick: (event: Event) => {
         if (this.validateInputs()) {
-          const registerFormData: FormData = new FormData(document.forms.register)
+          const registerFormData: FormData = new FormData((document.forms as FormRegisterType).register)
           window.store.dispatch(register, Object.fromEntries(registerFormData))
         }
         event.preventDefault()
@@ -81,10 +86,10 @@ const FormRegister = class extends Block<FormRegisterProps> {
       handleFocus: () => this.validateInputs(),
       handleBlur: () => this.validateInputs(),
       handleChange: () => {
-        const refs: { [p: string ]: Block } = this.refs
-        for (const ref: string in refs) {
+        const refs: { [p: string ]: Block<BlockProps> } = this.refs
+        for (const ref in refs) {
           if (refs[ref].refs && refs[ref].refs.errorBlock) {
-            refs[ref].refs.errorBlock.props.message = ''
+            (refs[ref].refs.errorBlock.props as MessageProps).message = ''
           }
         }
       }
@@ -92,10 +97,10 @@ const FormRegister = class extends Block<FormRegisterProps> {
     this._validator = new Validator(ruleSet)
   }
   validateInputs():boolean {
-    const refs: { [p: string ]: Block } = this.refs
+    const refs: { [p: string ]: Block<BlockProps> } = this.refs
     let error: boolean = false
-    for (const ref: string in refs) {
-      const inputComponent: Nullable<Block> = refs[ref].refs.input // eslint-disable-line no-undef
+    for (const ref in refs) {
+      const inputComponent: Nullable<Block<BlockProps>> = refs[ref].refs.input // eslint-disable-line no-undef
       if (inputComponent) {
         const inputElement: Nullable<HTMLInputElement> = inputComponent._element as HTMLInputElement // eslint-disable-line no-undef
         const value: string = inputElement.value
@@ -110,8 +115,8 @@ const FormRegister = class extends Block<FormRegisterProps> {
     return !error
   }
   setError(refName: string, type: string):void {
-    this.refs[refName].refs.errorBlock.props.error = true // eslint-disable-line
-    this.refs[refName].refs.errorBlock.props.message = this._validator.getFirstError(type)
+    (this.refs[refName].refs.errorBlock.props as MessageProps).error = true; // eslint-disable-line
+    (this.refs[refName].refs.errorBlock.props as MessageProps).message = this._validator.getFirstError(type)
   }
   protected render(): string {
     //language=hbs

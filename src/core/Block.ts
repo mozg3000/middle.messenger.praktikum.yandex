@@ -1,8 +1,10 @@
 import EventBus from './EventBus';
-import { nanoid } from 'nanoid';
+const { v4: uuid } = require('uuid');
 import Handlebars from 'handlebars';
 
-export interface BlockClass<P> extends Function {
+export type BlockProps = Object
+
+export interface BlockClass<P extends Object> extends Function {
   new (props: P): Block<P>; // eslint-disable-line no-unused-vars
   componentName?: string;
 }
@@ -13,7 +15,7 @@ interface BlockMeta<P = any> {
 
 type Events = Values<typeof Block.EVENTS>; // eslint-disable-line
 
-export default class Block<P = any> {
+export default class Block<P extends Object> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -21,17 +23,18 @@ export default class Block<P = any> {
     FLOW_RENDER: 'flow:render',
   } as const;
 
-  public id = nanoid(6);
+  public id = uuid(6);
+  //@ts-ignore
   private readonly _meta: BlockMeta;
 
-  protected _element: Nullable<HTMLElement> = null; // eslint-disable-line
-  protected readonly props: P;
-  protected children: {[id: string]: Block} = {};
+  public _element: Nullable<HTMLElement> = null; // eslint-disable-line
+  public readonly props: P;
+  protected children: {[id: string]: Block<P>} = {};
 
   eventBus: () => EventBus<Events>;
 
   protected state: any = {};
-  protected refs: {[key: string]: Block} = {};
+  public refs: {[key: string]: Block<P>} = {};
 
   componentName: string = ''
 
@@ -65,6 +68,7 @@ export default class Block<P = any> {
     this._element = this._createDocumentElement('div');
   }
 
+  //@ts-ignore
   protected getStateFromProps(props: any): void {  // eslint-disable-line no-unused-vars
     this.state = {};
   }
@@ -78,6 +82,7 @@ export default class Block<P = any> {
     this.componentDidMount(props);
   }
 
+  //@ts-ignore
   componentDidMount(props: P) { // eslint-disable-line no-unused-vars
   }
 
@@ -89,6 +94,7 @@ export default class Block<P = any> {
     this._render();
   }
 
+  //@ts-ignore
   componentDidUpdate(oldProps: P, newProps: P) { // eslint-disable-line no-unused-vars
     return true;
   }

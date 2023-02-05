@@ -1,5 +1,6 @@
 import { UserApi } from '../../lib/api/user/UserApi';
 import { Action } from '../../core/Store';
+//@ts-ignore
 import AppState from '../../../typings/app';
 
 type UserChangePasswordPayload = {

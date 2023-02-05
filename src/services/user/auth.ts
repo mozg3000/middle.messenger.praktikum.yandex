@@ -1,6 +1,7 @@
 import type { Dispatch } from '../../core/';
 import { AuthApi } from '../../lib/api/auth/AuthApi';
 import { Action } from '../../core/Store';
+//@ts-ignore
 import AppState from '../../../typings/app';
 
 type LoginPayload = {
@@ -17,6 +18,7 @@ type RegisterPayload = {
   phone: string
 }
 
+//@ts-ignore
 export const login: Action<AppState, LoginPayload> = async (dispatch, state, action) => {
   // dispatch({ isLoading: true, loginFormError: null })
   let client = new AuthApi()
@@ -29,7 +31,7 @@ export const login: Action<AppState, LoginPayload> = async (dispatch, state, act
     window.router.go('/chats')
   } catch (e) {
     console.log(e)
-    const data = JSON.parse(e.response)
+    const data = JSON.parse((e as XMLHttpRequest).response)
     if (data.reason === "User already in system") {
       dispatch({ isLoading: false })
       window.router.go('/chats')
@@ -47,6 +49,7 @@ export const logout = async (dispatch: Dispatch<AppState>) => { // eslint-disabl
   window.router.go('/')
 }
 
+//@ts-ignore
 export const register: Action<AppState, RegisterPayload> = async (dispatch, state, action) => {
   // dispatch({ isLoading: true, registerFormError: null })
   let client = new AuthApi()
