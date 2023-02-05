@@ -168,7 +168,7 @@ const Chat = class extends Block<ChatProps> {
                     <p>${m.content}</p>
                   </div>`
                 }
-              )}
+              ).join(' ')}
               <div id="scroll-here"></div>
             </div>
             <div class="messages-box-send flex f-between">

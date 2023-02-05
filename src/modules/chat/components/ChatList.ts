@@ -48,8 +48,6 @@ const ChatList = class extends Block<ChatListProps> {
     //language=hbs
     return `
       <article class="chat-list-block">
-        (
-          
         ${
                 //@ts-ignore
       this.props.chats().map((c) => {
@@ -65,8 +63,7 @@ const ChatList = class extends Block<ChatListProps> {
               select=selectChat
               avatarUrl="${this.props.avatarUrl(c)}"
           }}}`
-        }).join(' ')}
-        )
+        }).join(' ')}\
       </article>`
   }
 }
