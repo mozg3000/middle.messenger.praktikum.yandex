@@ -53,11 +53,11 @@ const Chat = class extends Block<ChatProps> {
       ...props,
       selected: false,
       selectedId: -1,
-      users: () => props.store.getState().users,
-      user: () => props.store.getState().user,
-      messages: () => props.store.getState().messages,
+      users: () => props.store ? props.store.getState().users : [],
+      user: () => props.store ? props.store.getState().user : null,
+      messages: () => props.store ? props.store.getState().messages : [],
       //@ts-ignore
-      chats: () => props.store.getState().chats,
+      chats: () => props.store ? props.store.getState().chats : [],
       handleSelectChat: (event: Event) => {
         //@ts-ignore
         const newSelectedId = event.currentTarget.dataset.id

@@ -17,7 +17,17 @@ describe('score/Store', () => {
 
     store.set({ userId: 123 })
 
-    expect(mock).toHaveBeenCalled()
+    expect(mock).toHaveBeenCalledTimes(1)
     expect(mock).toHaveBeenCalledWith({ userId: -1 }, { userId: 123 })
+  })
+  it('Should call callback with store and dispatch when', () => {
+    const store = new Store({ userId: -1 })
+    const mock = jest.fn()
+
+    store.dispatch(mock, 'PAYLOAD_PARAMS')
+
+    expect(mock).toHaveBeenCalledTimes(1)
+    expect(mock).toHaveBeenCalledWith(expect.anything(), store.getState(), 'PAYLOAD_PARAMS')
+    expect(mock)
   })
 })

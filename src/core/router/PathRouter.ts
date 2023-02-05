@@ -48,4 +48,8 @@ export class PathRouter implements CoreRouter {
   forward() {
     window.history.forward();
   }
+
+  public getRoutes() {
+    return this.routes
+  }
 }
