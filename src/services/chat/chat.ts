@@ -139,11 +139,11 @@ export const chatRoom: Action<AppState, chatRoomPayload> = async (dispatch, stat
         if (type === 'message') {
           state.messages.push(messages)
           dispatch({ messages: [...window.store.getState().messages, messages] })
+          const d = document.getElementById('scroll-here')
+          //@ts-ignore
+          d.scrollIntoView()
         }
       }
-      const d = document.getElementById('scroll-here')
-      //@ts-ignore
-      d.scrollIntoView()
     });
 
     socket.addEventListener('error', event => {
