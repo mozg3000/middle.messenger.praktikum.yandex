@@ -12,7 +12,7 @@
     "build": "node ./node_modules/.bin/webpack",
     "dev": "node ./node_modules/.bin/webpack-dev-server",
     "start": "npm run build && node server.js",
-    "test": "npm run lint-styles && npm run lint-es && jest && git add .",
+    "test": "npm run lint-styles && npm run lint-es && jest",
     "lint-es": "eslint ./src/**/*.ts",
     "lint-styles": "stylelint ./src/**/*.css",
     "jest": "jest"
