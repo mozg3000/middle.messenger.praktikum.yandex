@@ -11,7 +11,7 @@ import { sleep } from '../lib/utiles/utils';
 export type RenderBlockParams<T extends Object> = {
   Block?: BlockClass<T>
   props: T
-  state?: Partial<AppState>
+  state?: Partial<AppState> //eslint-disable-line no-undef
 }
 export type BlockComp = InstanceType<typeof Block>
 export async function renderBlock<T extends Object, P extends BlockComp>(
@@ -26,7 +26,7 @@ export async function renderBlock<T extends Object, P extends BlockComp>(
     registerComponent(Component)
   })
 
-  const store = new Store<AppState>({ ...defaultState, ...state })
+  const store = new Store<AppState>({ ...defaultState, ...state }) //eslint-disable-line no-undef
   const router = new MockedPathRouter()
 
   window.router = router

@@ -1,5 +1,5 @@
 import EventBus from './EventBus';
-const { v4: uuid } = require('uuid');
+const { v4: uuid } = require('uuid'); //eslint-disable-line no-undef
 import Handlebars from 'handlebars';
 
 export type BlockProps = Object
