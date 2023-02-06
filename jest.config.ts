@@ -14,7 +14,8 @@ const config = {
   },
   moduleNameMapper: {
     "\\.(css)$": "identity-obj-proxy"
-  }
+  },
+  testMatch: ["**/__tests__/**/*.spec.[jt]s?(x)", "**/__tests__/*.spec.[jt]s?(x)", "__tests__/*.spec.[jt]s?(x)"]
 };
 
 export default config;

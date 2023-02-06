@@ -30,14 +30,14 @@ export const login: Action<AppState, LoginPayload> = async (dispatch, state, act
     // dispatch({ isLoading: false })
     window.router.go('/chats')
   } catch (e) {
-    console.log(e)
+    console.log('error', e)
     const data = JSON.parse((e as XMLHttpRequest).response)
     if (data.reason === "User already in system") {
-      dispatch({ isLoading: false })
+      // dispatch({ isLoading: false })
       window.router.go('/chats')
     }
     // dispatch({ isLoading: false, loginFormError: e.response.reason })
-    // dispatch(logout)
+    dispatch(logout)
   }
 }
 

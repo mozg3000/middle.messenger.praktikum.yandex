@@ -14,7 +14,8 @@
     "start": "npm run build && node server.js",
     "test": "npm run lint-styles && npm run lint-es && jest && git add .",
     "lint-es": "eslint ./src/**/*.ts",
-    "lint-styles": "stylelint ./src/**/*.css"
+    "lint-styles": "stylelint ./src/**/*.css",
+    "jest": "jest"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.19.1",

@@ -6,7 +6,7 @@ import { initRouter } from '../../router';
 function init() {
   const store = new Store<AppState>(defaultState) // eslint-disable-line no-undef
   const router = new PathRouter()
-
+  document.body.innerHTML = '<div id="app"></div>'
   initRouter(router, store)
 
   return {
@@ -25,7 +25,7 @@ const AllRoutes = [
 ]
 
 describe('PathRoute/routes', () => {
-  document.body.innerHTML = '<div id="app"></div>'
+
   const { router } = init()
   const routes = router.getRoutes()
   const routesPaths = Object.keys(routes)
