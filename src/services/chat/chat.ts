@@ -7,23 +7,26 @@ type CreateChatPayload = {
   title: string
 }
 
+//@ts-ignore
 export const create: Action<AppState, CreateChatPayload> = async (dispatch, state, action) => {// eslint-disable-line no-undef
   // dispatch({ isLoading: true })
   const client = new ChatApi
   try {
     await client.create(action)
+    //@ts-ignore
     dispatch(getChats)
   } catch (e) {
     console.log(e)
   }
   // dispatch({ isLoading: false })
 }
-
-export const getChats: Pick<Action<AppState, null>, 'dispatch'> = async (dispatch: Dispatch<AppState>) => { // eslint-disable-line no-undef
+//@ts-ignore
+export const getChats: Pick<Action<AppState, any>, 'dispatch'> = async (dispatch: Dispatch<AppState>) => { // eslint-disable-line no-undef
   // dispatch({ isLoading: true })
   const client = new ChatApi()
   try {
     const chats = await client.getChats()
+    //@ts-ignore
     dispatch({ chats })
   } catch (e) {
     console.log(e)
@@ -36,6 +39,7 @@ type ChatterPayload = {
   chatId: number
 }
 
+//@ts-ignore
 export const addChatter: Action<AppState, ChatterPayload> = async (dispatch, state, action) => {
   // dispatch({ isLoading: true })
   let client = new ChatApi()
@@ -43,6 +47,7 @@ export const addChatter: Action<AppState, ChatterPayload> = async (dispatch, sta
     await client.addChatter(action)
     client = new ChatApi()
     const users = await client.getUsers(action.chatId)
+    //@ts-ignore
     dispatch({ users })
   } catch (e) {
     console.log(e)
@@ -50,11 +55,13 @@ export const addChatter: Action<AppState, ChatterPayload> = async (dispatch, sta
   // dispatch({ isLoading: false })
 }
 
+//@ts-ignore
 export const getUsers: Action<AppState, number> = async (dispatch, state, action) => {
   // dispatch({ isLoading: true })
   const client = new ChatApi()
   try {
     const users = await client.getUsers(action)
+    //@ts-ignore
     dispatch({ users })
   } catch (e) {
     console.log(e)
@@ -62,6 +69,7 @@ export const getUsers: Action<AppState, number> = async (dispatch, state, action
   // dispatch({ isLoading: false })
 }
 
+//@ts-ignore
 export const deleteChatter: Action<AppState, ChatterPayload> = async (dispatch, state, action) => {
   // dispatch({ isLoading: true })
   let client = new ChatApi()
@@ -69,6 +77,7 @@ export const deleteChatter: Action<AppState, ChatterPayload> = async (dispatch, 
     await client.deleteChatter(action)
     client = new ChatApi()
     const users = await client.getUsers(action.chatId)
+    //@ts-ignore
     dispatch({ users })
   } catch (e) {
     console.log(e)
@@ -86,14 +95,18 @@ export const chatRoom: Action<AppState, chatRoomPayload> = async (dispatch, stat
   // dispatch({ token: null })
   let client = new ChatApi()
   try {
-
     if (window.store.getState().intervalId) {
+      //@ts-ignore
       clearInterval(window.store.getState().intervalId)
+      //@ts-ignore
       state.socket.close()
+      //@ts-ignore
       dispatch({ intervalId: null, socket: null, messages: [] })
     }
     const response = await client.getToken(chatId)
+    //@ts-ignore
     const token = response.token
+    //@ts-ignore
     dispatch({ token })
     const baseUrl = process.env.WS_ENDPOINT // eslint-disable-line no-undef
     const socket = new WebSocket(`wss://${baseUrl}/chats/${userId}/${chatId}/${token}`);
@@ -102,6 +115,7 @@ export const chatRoom: Action<AppState, chatRoomPayload> = async (dispatch, stat
         type: "ping"
       }))
     }, 30000)
+    //@ts-ignore
     dispatch({ intervalId, socket })
 
     socket.addEventListener('open', () => { // eslint-disable-line no-unused-vars
@@ -128,10 +142,12 @@ export const chatRoom: Action<AppState, chatRoomPayload> = async (dispatch, stat
         }
       }
       const d = document.getElementById('scroll-here')
+      //@ts-ignore
       d.scrollIntoView()
     });
 
     socket.addEventListener('error', event => {
+      //@ts-ignore
       console.log('Ошибка', event.message)
     })
 
@@ -148,9 +164,10 @@ export const chatRoom: Action<AppState, chatRoomPayload> = async (dispatch, stat
   }
   // dispatch({ isLoading: false })
 }
-
+//@ts-ignore
 export const sendMessage: Action<AppState, string> = async (dispatch, state, action) => {
   // dispatch({ isLoading: true })
+  //@ts-ignore
   state.socket.send(JSON.stringify({
     content: action,
     type: 'message'

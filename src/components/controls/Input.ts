@@ -10,7 +10,7 @@ interface InputProps {
   placeholder?: string,
   value?: string,
   id?: string,
-  events?: { [key: string]: (event?: Event) => void } // eslint-disable-line no-unused-vars
+  events?: { [key: string]: (event: Event) => void } // eslint-disable-line no-unused-vars
 }
 
 const Input = class extends Block<InputProps> {
@@ -19,9 +19,9 @@ const Input = class extends Block<InputProps> {
     super({
       ...props,
       events: {
-        focus: props.focus,
-        blur: props.focus,
-        input: props.change
+        focus: props.focus as (event: Event) => void,
+        blur: props.focus as (event: Event) => void,
+        input: props.change as (event: Event) => void
       }
     });
 

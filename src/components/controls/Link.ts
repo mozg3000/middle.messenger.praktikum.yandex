@@ -6,7 +6,7 @@ interface LinkProps {
   target?: string,
   text: string,
   click?: (event: Event) => void, // eslint-disable-line no-unused-vars
-  events?: { [key: string]: (event?: Event) => void } // eslint-disable-line no-unused-vars
+  events?: { [key: string]: (event: Event) => void } // eslint-disable-line no-unused-vars
 }
 
 const Link = class extends Block<LinkProps> {
@@ -15,7 +15,7 @@ const Link = class extends Block<LinkProps> {
     super({
       ...props,
       events: {
-        click: props.click
+        click: props.click as (event: Event) => void
       }
     });
 

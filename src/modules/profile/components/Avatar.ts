@@ -9,6 +9,10 @@ interface AvatarProps {
 const Avatar = class extends Block<AvatarProps> {
   static componentName = 'Avatar'
 
+  constructor(props: AvatarProps) {
+    super(props);
+  }
+
   protected render(): string {
     const url = isFunction(this.props.url) ? this.props.url() : this.props.url
     //language=hbs

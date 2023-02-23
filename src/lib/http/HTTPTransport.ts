@@ -7,7 +7,7 @@ const METHODS = {
   DELETE: 'DELETE',
 }
 
-function queryStringify(data) {
+function queryStringify(data: { [key:string]: string }) {
   if (typeof data !== 'object') {
     throw new Error('Data must be object')
   }
@@ -18,27 +18,35 @@ function queryStringify(data) {
   }, '?')
 }
 
-type HTTPRequest = (url: string, options?: Object, timeout?: number) => Promise<Object> // eslint-disable-line no-unused-vars
-type HTTPMethod = Pick<HTTPRequest, 'url' | 'options'>
+type OptionsProps = {
+  timeout: number,
+  method: string,
+  headers: {[key:string]: string},
+  data: any,
+  isMultiPart: boolean
+}
+
+type HTTPRequest = (url: string, options: Partial<OptionsProps>, timeout?: number) => Promise<Object> // eslint-disable-line no-unused-vars
+type HTTPMethod = (url: string, options: Partial<OptionsProps>) => Promise<Object> // eslint-disable-line no-unused-vars
 
 class HTTPTransport implements TransportInterface {
-  get: HTTPMethod = (url, options = {}) => {
+  get: HTTPMethod = (url, options) => {
     return this.send(url, {...options, method: METHODS.GET}, options.timeout);
   }
 
-  post: HTTPMethod = (url, options = {}) => {
+  post: HTTPMethod = (url, options) => {
     return this.send(url, {...options, method: METHODS.POST}, options.timeout);
   }
 
-  put: HTTPMethod = (url, options = {}) => {
+  put: HTTPMethod = (url, options) => {
     return this.send(url, {...options, method: METHODS.PUT}, options.timeout);
   }
 
-  delete: HTTPMethod = (url, options = {}) => {
+  delete: HTTPMethod = (url, options) => {
     return this.send(url, {...options, method: METHODS.DELETE}, options.timeout);
   }
 
-  send: HTTPRequest = (url, options = {}, timeout = 5000) => {
+  send: HTTPRequest = (url, options , timeout = 5000) => {
     const { headers = {}, method, data, isMultiPart } = options
     return new Promise(function(resolve, reject) {
       if (!method) {

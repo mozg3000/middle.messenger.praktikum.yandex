@@ -5,7 +5,7 @@ interface ButtonProps {
   type: string,
   className?: string,
   title: string,
-  events?: { [key: string]: (event?: Event) => void } // eslint-disable-line no-unused-vars
+  events?: { [key: string]: (event: Event) => void } // eslint-disable-line no-unused-vars
 }
 
 const Button = class extends Block<ButtonProps> {
@@ -14,10 +14,9 @@ const Button = class extends Block<ButtonProps> {
     super({
       ...props,
       events: {
-        click: props.onClick
+        click: props.onClick as (event: Event) => void
       }
     });
-    
   }
   render(): string {
     //language=hbs

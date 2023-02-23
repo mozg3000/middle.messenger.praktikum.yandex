@@ -1,15 +1,18 @@
 import { Block, registerComponent } from '../../core';
 import { Input, InputProps } from './Input';
 import { Label, LabelProps } from './Label';
-import { ErrorMessage, ErrorMessageProps } from './ErrorMessage';
+import { ErrorMessage, MessageProps } from './ErrorMessage';
 
 registerComponent(Input);
 registerComponent(Label);
 registerComponent(ErrorMessage);
 
-interface InputGroupProps extends InputProps, LabelProps, ErrorMessageProps {}
-const InputGroup = class extends Block<InputGroupProps> {
+interface InputGroupProps extends InputProps, LabelProps, MessageProps {}
+class InputGroup extends Block<InputGroupProps> {
   static componentName = 'InputGroup'
+  constructor(props: InputGroupProps) {
+    super(props)
+  }
   render() {
     // language=hbs
     return `<div class="form-group flex d-column mt-30">

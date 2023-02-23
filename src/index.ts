@@ -7,15 +7,15 @@ import './styles/styles.css';
 
 declare global {
   interface Window {  // eslint-disable-line
-    store: Store<AppState>;  // eslint-disable-line no-undef
-    router: CoreRouter;
+    store: Store<AppState>; // eslint-disable-line no-undef
+    router: CoreRouter
   }
 }
 document.addEventListener('DOMContentLoaded', () => {
-  const store = new Store<AppState>(defaultState); // eslint-disable-line no-undef
-  const router = new PathRouter();
-  window.router = router;
-  window.store = store;
+  const store = new Store<AppState>(defaultState) // eslint-disable-line no-undef
+  const router = new PathRouter()
+  window.router = router
+  window.store = store
 
   store.on('changed', (prevState, nextState) => {
     console.log(

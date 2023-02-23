@@ -1,7 +1,7 @@
 import { Store, renderDOM, CoreRouter } from '../core';
 import { getScreenComponent, Screens } from '../lib/infrastructure/screenList';
 
-const routes = [
+export const routes = [
   {
     path: '/',
     block: Screens.Login,
@@ -27,43 +27,48 @@ const routes = [
     block: Screens.Chats,
     shouldAuthorized: true,
   },
-  // {
-  //   path: '*',
-  //   block: Screens.Login,
-  //   shouldAuthorized: false,
-  // },
-];
+  {
+    path: '*',
+    block: Screens.NotFound,
+    shouldAuthorized: false,
+  },
+]
 
 export function initRouter(router: CoreRouter, store: Store<AppState>) { // eslint-disable-line no-undef
   routes.forEach(route => {
     router.use(route.path, () => {
-      const isAuthorized = Boolean(store.getState().user);
-      const currentScreen = Boolean(store.getState().screen);
+      const isAuthorized = Boolean(window.store ? window.store.getState().user : store.getState().user)
+      const currentScreen = Boolean(window.store ? window.store.getState().screen : store.getState().screen)
 
-      if (isAuthorized || !route.shouldAuthorized) {
+      if (isAuthorized) {
         if (route.path === '/') {
           router.go('/chats')
           return
         }
-        store.dispatch({ screen: route.block });
+        // console.log()
+        store.dispatch({ screen: route.block })
         return
       }
-
       if (!currentScreen) {
-        store.dispatch({ screen: Screens.Login });
+        window.history.pushState({}, '', '/')
+        store.dispatch({ screen: Screens.Login })
+        return
       }
-    });
-  });
+      if (!route.shouldAuthorized) {
+        store.dispatch({ screen: route.block })
+      }
+    })
+  })
 
   store.on('changed', (prevState, nextState) => {
     if (!prevState.appIsInited && nextState.appIsInited) {
-      router.start();
+      router.start()
     }
 
     if (prevState.screen !== nextState.screen) {
-      const Page = getScreenComponent(nextState.screen);
+      const Page = getScreenComponent(nextState.screen)
       renderDOM(new Page({}));
-      document.title = `${Page.componentName}`;
+      document.title = `${Page.componentName}`
     }
-  });
+  })
 }

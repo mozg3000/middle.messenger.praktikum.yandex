@@ -8,7 +8,7 @@ export class PathRouter implements CoreRouter {
   start() {
     if (!this.isStarted) {
       this.isStarted = true;
-
+      //@ts-ignore
       window.onpopstate = (event: PopStateEvent) => { // eslint-disable-line no-unused-vars
         this.onRouteChange.call(this);
       };
@@ -17,7 +17,7 @@ export class PathRouter implements CoreRouter {
     }
   }
 
-  private onRouteChange(pathname: string = window.location.pathname) {
+  protected onRouteChange(pathname: string = window.location.pathname) {
     const found = Object.entries(this.routes).some(([routeHash, callback]) => {
       if (routeHash === pathname) {
         callback();
@@ -47,5 +47,9 @@ export class PathRouter implements CoreRouter {
 
   forward() {
     window.history.forward();
+  }
+
+  public getRoutes() {
+    return this.routes
   }
 }

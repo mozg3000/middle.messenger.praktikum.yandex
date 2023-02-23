@@ -4,6 +4,7 @@ import { Link } from './Link'
 import { Label } from './Label';
 import { ErrorMessage } from './ErrorMessage';
 import { InputGroup } from './InputGroup';
+import { MessageProps } from './ErrorMessage';
 
 export {
   Button,
@@ -11,6 +12,7 @@ export {
   Link,
   Label,
   ErrorMessage,
-  InputGroup
+  InputGroup,
+  MessageProps
 }
 

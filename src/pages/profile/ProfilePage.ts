@@ -1,4 +1,4 @@
-import { Block, registerComponent } from '../../core';
+import {Block, registerComponent, Store} from '../../core';
 import { Avatar } from '../../modules/profile/components';
 import {Info, Profile } from '../../modules/profile/components/Info';
 import { Action } from '../../modules/profile/components';
@@ -9,6 +9,8 @@ import { logout } from '../../services/user/auth';
 import { changeAvatar, updateProfile } from '../../services/user/profile';
 import { changeUserPassword } from '../../services/user/user';
 import { withStore } from '../../lib/infrastructure';
+import { MessageProps } from '../../components/controls';
+import { InputProps } from '../../components/controls/Input';
 
 registerComponent(Avatar)
 registerComponent(Info)
@@ -27,17 +29,29 @@ interface ProfilePageProps {
   handleChangePassword: (event: Event) => void // eslint-disable-line no-unused-vars
   handleChangePass: (event: Event) => void // eslint-disable-line no-unused-vars
   handleChangeAvatar: (event: Event) => void // eslint-disable-line no-unused-vars
+  store: InstanceType<typeof Store>,
+  getName: () => string
+}
+
+interface FormProfileType extends HTMLCollectionOf<HTMLFormElement> {
+  profile: HTMLFormElement
+}
+interface FormAvatarType extends HTMLCollectionOf<HTMLFormElement> {
+  changeAvatar: HTMLFormElement
+}
+interface FormChangePassType extends HTMLCollectionOf<HTMLFormElement> {
+  changePass: HTMLFormElement
 }
 
 const ProfilePage = class extends Block<ProfilePageProps> {
   static componentName = 'ProfilePage'
-  private _validator: Validator;
-  constructor(props) {
+  private _validator: InstanceType<typeof Validator>;
+  constructor(props: ProfilePageProps) {
     super({ // eslint-disable-next-line no-undef
       ...props,
       avatarUrl: () => props.store.getState().user && props.store.getState().user.avatar
         ? `${process.env.API_ENDPOINT}/resources/${encodeURI(props.store.getState().user.avatar)}`  // eslint-disable-line no-undef
-        : new URL('../../assets/images/profile/avatar.svg', import.meta.url),
+        : '/assets/images/profile/avatar.svg',
       data: () => props.store.getState().user
         ? ((ProfileData.data as Array<Profile>).map(infoItem => {
           return ({
@@ -55,16 +69,17 @@ const ProfilePage = class extends Block<ProfilePageProps> {
       handleSaveEditClick: (event: Event) => {
         event.preventDefault()
         if (this.validateInputs()) {
-          const profileFormData: FormData = new FormData(document.forms.profile)
+          const profileFormData: FormData = new FormData((document.forms as FormProfileType).profile)
           props.store.dispatch(updateProfile, Object.fromEntries(profileFormData))
           this.props.edit = false
         }
       },
       handler: () => this.validateInputs(),
       change: () => {
-        const refs: { [p: string ]: Block } = this.refs.infoBlock.refs
-        for (const ref: string in refs) {
-          refs[ref].refs[ref].refs.errorBlock.props.message = ''
+        //@ts-ignore
+        const refs = this.refs.infoBlock.refs
+        for (const ref in refs) {
+          ((refs[ref].refs[ref].refs.errorBlock.props as unknown) as MessageProps).message = ''
         }
       },
       handleLogout: (event: Event) => {
@@ -77,14 +92,14 @@ const ProfilePage = class extends Block<ProfilePageProps> {
       },
       handleChangePass: (event: Event) => {
         event.preventDefault()
-        const changeUserPassFormData: FormData = new FormData(document.forms.changePass)
+        const changeUserPassFormData: FormData = new FormData((document.forms as FormChangePassType).changePass)
         props.store.dispatch(changeUserPassword, Object.fromEntries(changeUserPassFormData))
         this.props.changePass = false
       },
       handleChangeAvatar: (event: Event) => {
         event.preventDefault()
         const changeAvatarFormData: FormData = new FormData()
-        changeAvatarFormData.append('avatar', document.forms.changeAvatar.elements[0].files[0])
+        changeAvatarFormData.append('avatar', (document.forms as FormAvatarType).changeAvatar.avatar.files[0])
         props.store.dispatch(changeAvatar, changeAvatarFormData)
       },
       getName() {
@@ -96,14 +111,15 @@ const ProfilePage = class extends Block<ProfilePageProps> {
         }
         return secondName + ' ' + firstName
       }
-    })
+    } as ProfilePageProps)
     this._validator = new Validator(ruleSet)
   }
   validateInputs():boolean {
-    const refs: { [p: string ]: Block } = this.refs.infoBlock.refs
+    //@ts-ignore
+    const refs = this.refs.infoBlock.refs
     let error: boolean = false
-    for (const ref: string in refs) {
-      const inputComponent: Nullable<Block> = refs[ref].refs[ref].refs.input // eslint-disable-line no-undef
+    for (const ref in refs) {
+      const inputComponent: Block<InputProps> = (refs[ref].refs[ref].refs.input as unknown) as Block<InputProps>// eslint-disable-line no-undef
       if (inputComponent) {
         const inputElement: Nullable<HTMLInputElement> = inputComponent._element as HTMLInputElement // eslint-disable-line no-undef
         const value: string = inputElement.value
@@ -117,8 +133,10 @@ const ProfilePage = class extends Block<ProfilePageProps> {
     return !error
   }
   setError(refName: string, type: string):void {
-    this.refs.infoBlock.refs[refName].refs[refName].refs.errorBlock.props.error = true // eslint-disable-line
-    this.refs.infoBlock.refs[refName].refs[refName].refs.errorBlock.props.message = this._validator.getFirstError(type)
+    //@ts-ignore
+    (this.refs.infoBlock.refs[refName].refs[refName].refs.errorBlock.props as MessageProps).error = true; // eslint-disable-line
+    //@ts-ignore
+    (this.refs.infoBlock.refs[refName].refs[refName].refs.errorBlock.props as MessageProps).message = this._validator.getFirstError(type)
   }
 
   protected render(): string {
@@ -205,4 +223,5 @@ const ProfilePage = class extends Block<ProfilePageProps> {
   }
 }
 export { ProfilePage }
+//@ts-ignore
 export default withStore(ProfilePage)

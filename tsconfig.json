@@ -1,19 +1,24 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "ESNext",
     "module": "commonjs",
+    "outDir": "./dist",
     "typeRoots": [
       "node_modules/@types",
       "typings/app.d.ts"
     ],
-    "sourceMap": "true",
-    "esModuleInterop": "true",
-    "forceConsistentCasingInFileNames": "true",
-    "strict": "true",
-    "noImplicitAny": "true",
-    "strictNullChecks": "true",
-    "noUnusedLocals": "true",
-    "noUnusedParameters": "true",
-    "skipLibCheck": "true"
-  }
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+  },
+  "include": ["./src"],
+  "exclude": [
+    "node_modules"
+  ]
 }

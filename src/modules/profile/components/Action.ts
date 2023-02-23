@@ -11,6 +11,10 @@ interface ActionProps {
 
 const Action = class extends Block<ActionProps> {
   static componentName = 'Action'
+
+  constructor(props: ActionProps) {
+    super(props);
+  }
   protected render(): string {
     //language=hbs
     return `

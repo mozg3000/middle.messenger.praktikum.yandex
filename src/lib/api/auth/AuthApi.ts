@@ -34,6 +34,7 @@ class AuthApi extends BaseApi {
   }
 
   userInfo() {
+    //@ts-ignore
     return this.client.request('/auth/user')
   }
 

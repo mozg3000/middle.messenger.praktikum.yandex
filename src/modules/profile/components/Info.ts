@@ -15,11 +15,17 @@ interface InfoProps {
   ref: string,
   handler: () => void,
   change: () => void,
-  profile: Profile[]
+  profile: () => Profile[]
 }
 
 const Info = class extends Block<InfoProps> {
   static componentName = 'Info'
+
+  constructor(props: InfoProps) {
+    super(props);
+
+  }
+
   protected render(): string {
     //language=hbs
     return `
